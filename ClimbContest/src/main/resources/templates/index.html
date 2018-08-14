@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Slonska Liga Boulderowa - rankingi">
+<title>ClimbContest - run climbing contests</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<h1>{{header}}</h1>
+	<table>
+		<tr>
+			<th>name</th>
+			<th>score</th> 
+			{{#climbers}}
+			<tr>
+				<td>{{name}}</td>
+				<td>{{score}}</td>
+			</tr>
+			{{/climbers}}
+		</tr>
+		
+	</table>
+	
+	<div class="container"></div>
+	<footer>
+		&copy; 2016 - 2017 by <strong>FFK</strong>
+	</footer>
+</body>
+
+</html>

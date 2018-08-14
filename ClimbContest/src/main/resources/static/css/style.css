@@ -1,0 +1,31 @@
+* {
+    font-family: sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+th {
+	background-color: green;
+	padding: 15px;
+	width: 150px;
+	text-align: left;
+}
+
+td {
+	padding: 15px;
+}
+
+tr:nth-child(even) {
+	background-color: #b9ffb9;
+}
+
+tr:nth-child(odd) {
+	background-color: white
+}
+
+footer {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #DDD;
+}
