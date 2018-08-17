@@ -17,8 +17,8 @@ public class ScoreCardController {
 
 	@GetMapping("/")
 	public ModelAndView home(Map<String, Object> model) {
-		List<Climber> climbers = Arrays.asList(new Climber("Kozak", 5), new Climber("Dzik", 4),
-				new Climber("Anakin", 4), new Climber("Zdzich", 3), new Climber("Marta", 1));
+		List<Climber> climbers = Arrays.asList(new Climber("Kozak", 5, 90, 85), new Climber("Dzik", 4, 21, 90),
+				new Climber("Anakin", 4, 24, 78), new Climber("Zdzich", 3, 30, 98), new Climber("Marta", 1, 20, 62));
 
 		model.put("climbers", climbers);
 		model.put("header", "Score Card");
