@@ -4,10 +4,22 @@
     box-sizing: border-box;
 }
 
+body {
+  display: block;
+}
+.span3:focus ~ .alert {
+  display: none;
+}
+.span2:focus ~ .alert {
+  display: block;
+}
+ 
+
 table {
     margin-left:auto; 
     margin-right:auto;
     margin-bottom: 30px;
+    border-collapse: collapse;
   }
     
 h1 {text-align: center;
@@ -19,6 +31,8 @@ th {
 	width: 150px;
 	text-align: center;
 	color: white;
+	border-left: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
 }
 
 td:nth-child(1) {
@@ -29,6 +43,8 @@ td:nth-child(1) {
 td {
 	padding: 6px;
 	text-align: center;
+	border-left: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
 }
 
 tr:nth-child(even) {
@@ -36,7 +52,7 @@ tr:nth-child(even) {
 }
 
 tr:nth-child(odd) {
-	background-color: #d0ffd0;
+	background-color: #d0ffd0;	
 }
 
 footer {

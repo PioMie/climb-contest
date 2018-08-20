@@ -7,16 +7,37 @@
 <meta name="description" content="Slonska Liga Boulderowa - rankingi">
 <title>ClimbContest - run climbing contests</title>
 <link rel="stylesheet" href="css/style.css">
-</head>
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script> 
+<script type="text/javascript" charset="utf8" src=js/jquery.dataTables.js></script>
 
+
+<script>
+$(document).ready( function () {
+	$('#table_id').DataTable( {
+	   searching: false,
+	   paging: false,
+	   bInfo: false,
+	   "order": [[ 1, "desc" ]]
+	} );
+
+} );
+</script>
+
+</head>
 <body>
 	<h1>{{header}}</h1>
-	<table>
-		<tr>
-			<th>name</th>
-			<th>score</th> 
-			<th>age</th>
-			<th>weight</th>
+	
+	<table id="table_id" class="DataTable">
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>score</th>
+				<th>age</th>
+				<th>weight</th>
+			</tr>
+		</thead>
+
+		<tbody>
 			{{#climbers}}
 			<tr>
 				<td>{{name}}</td>
@@ -25,10 +46,10 @@
 				<td>{{weight}}</td>
 			</tr>
 			{{/climbers}}
-		</tr>
-		
+		</tbody>
+
 	</table>
-	
+
 	<div class="container"></div>
 	<footer>
 		&copy; 2016 - 2017 by <strong>FFK</strong>
