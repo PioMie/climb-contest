@@ -15,10 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import cc.model.Climber;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/public")
 public class ScoreCardController {
 
-	@GetMapping("/")
+	@GetMapping
 	public ModelAndView home(Map<String, Object> model) {
 		
 		 
