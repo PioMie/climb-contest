@@ -10,11 +10,14 @@ public class IfscScore {
 	int bonusesAttempts;
 
 	public IfscScore(int tops, int topAttempts, int bonuses, int bonusesAttempts) {
-		super();
 		this.tops = tops;
 		this.topAttempts = topAttempts;
 		this.bonuses = bonuses;
 		this.bonusesAttempts = bonusesAttempts;
+	}
+
+	public IfscScore() {
+		// default constructor: 0, 0, 0, 0
 	}
 
 	public int getTops() {
@@ -32,32 +35,37 @@ public class IfscScore {
 	public int getBonusesAttempts() {
 		return bonusesAttempts;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-        if (o == this) return true;
-        if (!(o instanceof IfscScore)) {
-            return false;
-        }
+		if (o == this)
+			return true;
+		if (!(o instanceof IfscScore)) {
+			return false;
+		}
 
-        IfscScore ifscScore = (IfscScore) o;
+		IfscScore ifscScore = (IfscScore) o;
 
-        return tops == ifscScore.tops &&
-               topAttempts == ifscScore.topAttempts &&
-               bonuses == ifscScore.bonuses &&
-               bonusesAttempts == ifscScore.bonusesAttempts;
+		return tops == ifscScore.tops && topAttempts == ifscScore.topAttempts && bonuses == ifscScore.bonuses
+				&& bonusesAttempts == ifscScore.bonusesAttempts;
 	}
 
-	
-    @Override
-    public int hashCode() {
-        return Objects.hash(tops, topAttempts, bonuses, bonusesAttempts);
-    }
-    
-    @Override
-    public String toString() {
-    	String wyswietlanyWynik = Integer.toString(tops) + "t" + Integer.toString(topAttempts) + "  "  + Integer.toString(bonuses) + "b" + Integer.toString(bonusesAttempts);
-    	
-    	return wyswietlanyWynik; //TODO zwracać zapis / wynik
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(tops, topAttempts, bonuses, bonusesAttempts);
+	}
+
+	@Override
+	public String toString() {
+		return tops + "t" + topAttempts + "  " + bonuses + "b" + bonusesAttempts;
+	}
+
+	public static IfscScore parseString(String ifscScoreString) {
+		String[] parts = ifscScoreString.split("t|b|\\s+");
+		int tops = Integer.parseInt(parts[0]);
+		int topAttempts = Integer.parseInt(parts[1]);
+		int bonuses = Integer.parseInt(parts[2]);
+		int bonusesAttempts = Integer.parseInt(parts[3]);
+		return new IfscScore(tops, topAttempts, bonuses, bonusesAttempts);
+	}
 }

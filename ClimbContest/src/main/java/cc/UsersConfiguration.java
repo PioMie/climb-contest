@@ -1,5 +1,7 @@
 package cc;
 
+import java.util.concurrent.ExecutionException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,9 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import cc.repository.ScoreRepository;
+
 @Configuration
 @EnableWebSecurity
 public class UsersConfiguration extends WebSecurityConfigurerAdapter {
+
+	private String projectId = "climbing-competitions";
 
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -34,5 +40,12 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests() //
 				.antMatchers("/public/**", "/css/**", "/js/**").permitAll() //
 				.antMatchers("/secret/**").hasRole("DUCK").and().formLogin();
+	}
+
+	// cc app beans:
+
+	@Bean
+	ScoreRepository scoreRepository() throws InterruptedException, ExecutionException {
+		return new ScoreRepository(projectId);
 	}
 }
