@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import cc.repository.ScoreRepository;
+import cc.repository.ClimbersRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -45,7 +45,7 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 	// cc app beans:
 
 	@Bean
-	ScoreRepository scoreRepository() throws InterruptedException, ExecutionException {
-		return new ScoreRepository(projectId);
+	ClimbersRepository scoreRepository() throws InterruptedException, ExecutionException {
+		return new ClimbersRepository(projectId);
 	}
 }

@@ -1,9 +1,11 @@
 package cc.service;
 
+import java.util.List;
+
 import cc.model.IfscScore;
 
 public class IfscCalculator {
-	public IfscScore addAttempt(IfscScore ifscScore, String attemptEffect) {
+	public IfscScore addAttempt(IfscScore ifscScore, IfscAttemptEffect attemptEffect) {
 		int tops = ifscScore.getTops();
 		int topAttempts = ifscScore.getTopAttempts();
 		int bonuses = ifscScore.getBonuses();
@@ -11,25 +13,16 @@ public class IfscCalculator {
 
 		topAttempts = tops == 1 ? topAttempts : ++topAttempts;
 		bonusesAttempts = bonuses == 1 ? bonusesAttempts : ++bonusesAttempts;
-
-		//TODO rework using enums
-		switch (attemptEffect) {
-		case "top":
-			tops = 1;
-			bonuses = 1;
-			break;
-		case "bonus":
-			bonuses = 1;
-			break;
-		}
+		tops = IfscAttemptEffect.TOP.equals(attemptEffect) ? 1 : tops;
+		bonuses = IfscAttemptEffect.TOP.equals(attemptEffect) ? 1 : bonuses;
+		bonuses = IfscAttemptEffect.BONUS.equals(attemptEffect) ? 1 : bonuses;
 
 		IfscScore resultIfscScore = new IfscScore(tops, topAttempts, bonuses, bonusesAttempts);
 		return resultIfscScore;
 
 	}
 
-	// ??
-	public IfscScore sumScores(IfscScore[] ifscScores) {
+	public IfscScore sumScores(List<IfscScore> ifscScores) {
 
 		int tops = 0;
 		int topAttempts = 0;
@@ -38,9 +31,13 @@ public class IfscCalculator {
 
 		for (IfscScore ifscScore : ifscScores) {
 			tops += ifscScore.getTops();
-			topAttempts += ifscScore.getTopAttempts();
+			if (ifscScore.getTops() > 0) {
+				topAttempts += ifscScore.getTopAttempts();
+			}
 			bonuses += ifscScore.getBonuses();
-			bonusesAttempts += ifscScore.getBonusesAttempts();
+			if (ifscScore.getBonuses() > 0) {
+				bonusesAttempts += ifscScore.getBonusesAttempts();				
+			}
 		}
 
 		IfscScore resultIfscScore = new IfscScore(tops, topAttempts, bonuses, bonusesAttempts);

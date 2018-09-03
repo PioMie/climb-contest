@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cc.model.Climber;
-import cc.repository.ScoreRepository;
+import cc.repository.ClimbersRepository;
 
 @Controller
 @RequestMapping("/public")
 public class ScoreCardController {
 
 	@Autowired
-	ScoreRepository scoreRepository;
+	ClimbersRepository scoreRepository;
 	
 	@GetMapping
 	public ModelAndView home(Map<String, Object> model) throws InterruptedException, ExecutionException {

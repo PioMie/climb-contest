@@ -62,6 +62,9 @@ public class IfscScore {
 
 	public static IfscScore parseString(String ifscScoreString) {
 		String[] parts = ifscScoreString.split("t|b|\\s+");
+		if (parts.length != 4) {
+			throw new RuntimeException(String.format("Parsing of a score: '%s' has failed: wrong number of arguments."));
+		}
 		int tops = Integer.parseInt(parts[0]);
 		int topAttempts = Integer.parseInt(parts[1]);
 		int bonuses = Integer.parseInt(parts[2]);

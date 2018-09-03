@@ -19,18 +19,18 @@ import cc.model.Climber;
 import cc.model.IfscScore;
 
 @Repository
-public class ScoreRepository {
+public class ClimbersRepository {
 
 	private Firestore db;
 
-	public ScoreRepository(String projectId) throws InterruptedException, ExecutionException {
+	public ClimbersRepository(String projectId) throws InterruptedException, ExecutionException {
 		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
 				.build();
 		db = firestoreOptions.getService();
 
 		// some sample data
-		saveClimber(new Climber("Pio", 32, 73, new IfscScore(4, 19, 6, 16)));
-		saveClimber(new Climber("Fell", 100, 100, new IfscScore(0, 100, 1, 50)));
+		saveClimber(new Climber("Pio", "FFK", "pro", new IfscScore(4, 19, 6, 16)));
+		saveClimber(new Climber("Fell", "FFK", "lajt", new IfscScore(0, 100, 1, 50)));
 	}
 
 	public void saveClimber(Climber climber) throws InterruptedException, ExecutionException {
@@ -38,8 +38,8 @@ public class ScoreRepository {
 		Map<String, Object> data = new HashMap<>();
 		data.put("name", climber.getName());
 		data.put("ifscScore", climber.getIfscScore().toString());
-		data.put("weight", climber.getWeight());
-		data.put("age", climber.getAge());
+		data.put("club", climber.getClub());
+		data.put("category", climber.getCategory());
 		docRef.set(data);
 	}
 
@@ -54,10 +54,10 @@ public class ScoreRepository {
 		List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 		for (QueryDocumentSnapshot document : documents) {
 			String name = document.getString("name");
-			Integer age = document.getLong("age").intValue();
-			Integer weight = document.getLong("weight").intValue();
+			String club = document.getString("club");
+			String category = document.getString("category");
 			IfscScore ifscScore = IfscScore.parseString(document.getString("ifscScore"));
-			Climber climber = new Climber(name, age, weight, ifscScore);
+			Climber climber = new Climber(name, club, category, ifscScore);
 			res.add(climber);
 		}
 
