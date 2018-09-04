@@ -45,7 +45,7 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 	// cc app beans:
 
 	@Bean
-	ClimbersRepository scoreRepository() throws InterruptedException, ExecutionException {
+	ClimbersRepository climbersRepository() throws InterruptedException, ExecutionException {
 		return new ClimbersRepository(projectId);
 	}
 }
