@@ -25,12 +25,13 @@ public class ClimbersRepository {
 
 	public ClimbersRepository(String projectId) throws InterruptedException, ExecutionException {
 		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
-				.build();
+				.setTimestampsInSnapshotsEnabled(true).build();
 		db = firestoreOptions.getService();
 
 		// some sample data
-		saveClimber(new Climber("Pio", "FFK", "pro", new IfscScore(4, 19, 6, 16)));
-		saveClimber(new Climber("Fell", "FFK", "lajt", new IfscScore(0, 100, 1, 50)));
+		// saveClimber(new Climber("Pio", "FFK", "pro", new IfscScore(4, 19, 6, 16)));
+		// saveClimber(new Climber("Fell", "FFK", "lajt", new IfscScore(0, 100, 1,
+		// 50)));
 	}
 
 	public void saveClimber(Climber climber) throws InterruptedException, ExecutionException {
