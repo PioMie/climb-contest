@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cc.model.Climber;
-import cc.repository.ClimbersRepository;
+import cc.service.ClimbersService;
 
 @Controller
 @RequestMapping("/public")
 public class ScoreCardController {
 
 	@Autowired
-	ClimbersRepository scoreRepository;
-	
+	ClimbersService climbersService;
+
 	@GetMapping
 	public ModelAndView home(Map<String, Object> model) throws InterruptedException, ExecutionException {
 
-		List<Climber> climbers = scoreRepository.loadClimbers();
+		List<Climber> climbers = climbersService.getClimbers();
 
 		model.put("climbers", climbers);
 		model.put("header", "Score Card");
