@@ -28,7 +28,7 @@ public class SecretController {
 
 	@PostMapping("/addAttempt")
 	public ModelAndView addAttempt(@ModelAttribute Attempt attempt) throws InterruptedException, ExecutionException {
-		Climber climber = climbersService.getClimber(attempt.getCompetitorId());
+		Climber climber = climbersService.updateClimber(attempt);
 		return new ModelAndView("competitor", "climber", climber);
 	}
 

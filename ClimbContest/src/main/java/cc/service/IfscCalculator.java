@@ -2,8 +2,12 @@ package cc.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import cc.model.IfscAttemptEffect;
 import cc.model.IfscScore;
 
+@Service
 public class IfscCalculator {
 	public IfscScore addAttempt(IfscScore ifscScore, IfscAttemptEffect attemptEffect) {
 		int tops = ifscScore.getTops();

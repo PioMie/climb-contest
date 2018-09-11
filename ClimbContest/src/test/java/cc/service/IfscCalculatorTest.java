@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import cc.model.IfscAttemptEffect;
 import cc.model.IfscScore;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -21,13 +22,13 @@ public class IfscCalculatorTest {
 		IfscScore testScore = new IfscScore();
 
 		// when
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NOTHING);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NOTHING);
+		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
+		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
 		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.BONUS);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NOTHING);
+		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
 		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.BONUS);
 		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.TOP);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NOTHING);
+		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
 		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.BONUS);
 		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.TOP);
 
@@ -38,7 +39,8 @@ public class IfscCalculatorTest {
 	@Test
 	public void testSumScores() {
 		// given
-		List<IfscScore> ifscScores = Arrays.asList(new IfscScore(9, 9, 9, 9), new IfscScore(1, 2, 3, 4), new IfscScore(0, 1, 0, 1));
+		List<IfscScore> ifscScores = Arrays.asList(new IfscScore(9, 9, 9, 9), new IfscScore(1, 2, 3, 4),
+				new IfscScore(0, 1, 0, 1));
 		IfscScore expectedScore = new IfscScore(10, 11, 12, 13);
 
 		// when
