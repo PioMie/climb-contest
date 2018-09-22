@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutionException;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -40,6 +42,15 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/public/**", "/css/**", "/js/**").permitAll();
 		http.authorizeRequests().antMatchers("/secret/**").hasRole("DUCK").and().formLogin();
 		http.csrf().disable();
+	}
+
+	@Bean
+	public TaskExecutor taskExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(5);
+		executor.setMaxPoolSize(10);
+		executor.setQueueCapacity(25);
+		return executor;
 	}
 
 	// cc app beans:

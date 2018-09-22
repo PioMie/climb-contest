@@ -1,5 +1,9 @@
 package cc.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Climber {
 
 	private int id;
@@ -7,21 +11,19 @@ public class Climber {
 	private String club;
 	private String category;
 	private IfscScore ifscScore;
+	private List<IfscScore> routeScores;
 
 	public Climber(int id, String name, String club, String category) {
-		this(id, name, club, category, new IfscScore());
-		this.name = name;
-		this.club = club;
-		this.category = category;
-		ifscScore = new IfscScore();
+		this(id, name, club, category, new IfscScore(), new ArrayList<IfscScore>());
 	}
 
-	public Climber(int id, String name, String club, String category, IfscScore ifscScore) {
+	public Climber(int id, String name, String club, String category, IfscScore ifscScore, List<IfscScore> routeScores) {
 		this.id = id;
 		this.name = name;
 		this.club = club;
 		this.category = category;
 		this.ifscScore = ifscScore;
+		this.routeScores = Collections.unmodifiableList(routeScores);
 	}
 
 	public int getId() {
@@ -46,6 +48,10 @@ public class Climber {
 
 	public IfscScore getIfscScore() {
 		return ifscScore;
+	}
+
+	public List<IfscScore> getRouteScores() {
+		return routeScores;
 	}
 
 }
