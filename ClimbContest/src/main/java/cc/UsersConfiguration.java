@@ -37,8 +37,8 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/public/**", "/css/**", "/js/**").permitAll();
-		http.authorizeRequests().antMatchers("/secret/**").hasRole("DUCK").and().formLogin();
+		http.authorizeRequests().antMatchers("/scoreCard/**", "/css/**", "/js/**").permitAll();
+		http.authorizeRequests().antMatchers("/scoreAddition/**").hasRole("DUCK").and().formLogin();
 		http.csrf().disable();
 	}
 

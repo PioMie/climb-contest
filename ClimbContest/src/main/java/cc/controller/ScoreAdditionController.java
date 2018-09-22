@@ -1,7 +1,5 @@
 package cc.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +13,15 @@ import cc.model.Climber;
 import cc.service.ClimbersService;
 
 @Controller
-@RequestMapping("/secret")
-public class SecretController {
+@RequestMapping("/scoreAddition")
+public class ScoreAdditionController {
 
 	@Autowired
 	ClimbersService climbersService;
 
 	@GetMapping
 	public String get() {
-		return "secret";
+		return "scoreAddition";
 	}
 
 	@PostMapping("/addAttempt")

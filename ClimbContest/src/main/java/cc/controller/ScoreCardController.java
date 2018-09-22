@@ -14,7 +14,7 @@ import cc.model.Climber;
 import cc.service.ClimbersService;
 
 @Controller
-@RequestMapping("/public")
+@RequestMapping("/scoreCard")
 public class ScoreCardController {
 
 	@Autowired
@@ -28,7 +28,7 @@ public class ScoreCardController {
 		model.put("climbers", climbers);
 		model.put("header", "Score Card");
 
-		return new ModelAndView("index", model);
+		return new ModelAndView("scoreCard", model);
 	}
 
 }
