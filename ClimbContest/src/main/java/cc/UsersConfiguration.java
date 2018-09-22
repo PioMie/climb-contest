@@ -1,7 +1,5 @@
 package cc;
 
-import java.util.concurrent.ExecutionException;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -56,7 +54,7 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 	// cc app beans:
 
 	@Bean
-	ClimbersRepository climbersRepository() throws InterruptedException, ExecutionException {
+	ClimbersRepository climbersRepository() {
 		return new ClimbersRepository(projectId);
 	}
 }

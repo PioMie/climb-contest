@@ -1,6 +1,6 @@
 package cc.controller;
 
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class SecretController {
 	}
 
 	@PostMapping("/addAttempt")
-	public ModelAndView addAttempt(@ModelAttribute Attempt attempt) throws InterruptedException, ExecutionException {
+	public ModelAndView addAttempt(@ModelAttribute Attempt attempt) {
 		Climber climber = climbersService.updateClimber(attempt);
 		return new ModelAndView("competitor", "climber", climber);
 	}

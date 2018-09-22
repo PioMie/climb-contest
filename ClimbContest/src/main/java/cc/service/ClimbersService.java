@@ -2,9 +2,6 @@ package cc.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.ExecutionException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
@@ -24,32 +21,28 @@ public class ClimbersService {
 	@Autowired
 	TaskExecutor taskExecutor;
 
-	public Climber getClimber(int climberId) throws InterruptedException, ExecutionException {
+	public Climber getClimber(int climberId) {
 		List<Climber> climbers = getClimbers();
 		for (Climber c : climbers) {
 			if (c.getId() == climberId) {
 				return c;
 			}
 		}
-		throw new NoSuchElementException(String.format("Climber with ID: %d does not exist.", climberId));
+		throw new RuntimeException(String.format("Climber with ID: %d does not exist.", climberId));
 	}
 
-	public List<Climber> getClimbers() throws InterruptedException, ExecutionException {
+	public List<Climber> getClimbers() {
 		return scoreRepository.loadClimbers();
 	}
 
-	public Climber updateClimber(Attempt attempt) throws InterruptedException, ExecutionException {
+	public Climber updateClimber(Attempt attempt) {
 		taskExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				try {
+
 					Climber climber = getClimber(attempt.getCompetitorId());
 					Climber updatedClimber = updateClimber(climber, attempt);
 					scoreRepository.saveClimber(updatedClimber);
-				} catch (InterruptedException | ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		});
 		Climber climber = getClimber(attempt.getCompetitorId());

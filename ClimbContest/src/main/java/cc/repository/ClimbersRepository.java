@@ -26,7 +26,7 @@ public class ClimbersRepository {
 	private Firestore db;
 
 
-	public ClimbersRepository(String projectId) throws InterruptedException, ExecutionException {
+	public ClimbersRepository(String projectId) {
 		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
 				.setTimestampsInSnapshotsEnabled(true).build();
 		db = firestoreOptions.getService();
@@ -36,7 +36,7 @@ public class ClimbersRepository {
 //		 saveClimber(new Climber(1, "Fell", "FFK", "lajt"));
 	}
 
-	public void saveClimber(Climber climber) throws InterruptedException, ExecutionException {
+	public void saveClimber(Climber climber) {
 		DocumentReference docRef = db.collection("scores-test").document(climber.getName());
 		Map<String, Object> data = new HashMap<>();
 		data.put("id", climber.getId());
@@ -72,14 +72,19 @@ public class ClimbersRepository {
 		return Collections.unmodifiableList(res);
 	}
 
-	public List<Climber> loadClimbers() throws InterruptedException, ExecutionException {
+	public List<Climber> loadClimbers() {
 		List<Climber> res = new ArrayList<>();
 
 		// asynchronously retrieve all users
 		ApiFuture<QuerySnapshot> query = db.collection("scores-test").get();
 		// ...
 		// query.get() blocks on response
-		QuerySnapshot querySnapshot = query.get();
+		QuerySnapshot querySnapshot;
+		try {
+			querySnapshot = query.get();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new RuntimeException(e);
+		}
 		List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 		for (QueryDocumentSnapshot document : documents) {
 			int id = document.getLong("id").intValue();
