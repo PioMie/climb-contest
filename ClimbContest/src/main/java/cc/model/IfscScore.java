@@ -35,6 +35,10 @@ public class IfscScore {
 	public int getBonusesAttempts() {
 		return bonusesAttempts;
 	}
+	
+	public String getScore() {
+		return toString();
+	}
 
 	@Override
 	public boolean equals(Object o) {

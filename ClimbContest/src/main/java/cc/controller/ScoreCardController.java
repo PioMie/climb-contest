@@ -1,5 +1,6 @@
 package cc.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 //import java.util.Comparator; //Added to make sorting possible
@@ -27,6 +28,7 @@ public class ScoreCardController {
 
 		model.put("climbers", climbers);
 		model.put("header", "Score Card");
+		model.put("routes", Arrays.asList("route 1", "route 2", "route 3", "route 4", "route 5"));
 
 		return new ModelAndView("scoreCard", model);
 	}

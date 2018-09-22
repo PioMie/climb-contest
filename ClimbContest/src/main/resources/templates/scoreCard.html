@@ -31,9 +31,12 @@ $(document).ready( function () {
 		<thead>
 			<tr>
 				<th>name</th>
-				<th>score</th>
-				<th>club</th>
 				<th>category</th>
+				<th>club</th>
+				<th>score</th>
+				{{#routes}}
+				<th>{{.}}</th>
+				{{/routes}}
 			</tr>
 		</thead>
 
@@ -41,9 +44,12 @@ $(document).ready( function () {
 			{{#climbers}}
 			<tr>
 				<td>{{name}}</td>
-				<td>{{score}}</td>
-				<td>{{club}}</td>
 				<td>{{category}}</td>
+				<td>{{club}}</td>
+				<td>{{score}}</td>
+				{{#routeScores}}
+				<td>{{score}}</td>
+				{{/routeScores}}
 			</tr>
 			{{/climbers}}
 		</tbody>
