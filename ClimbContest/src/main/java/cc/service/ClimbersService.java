@@ -17,7 +17,7 @@ public class ClimbersService {
 	@Autowired
 	IfscCalculator calculator;
 	@Autowired
-	ClimbersRepository scoreRepository;
+	ClimbersRepository climbersRepository;
 	@Autowired
 	TaskExecutor taskExecutor;
 
@@ -32,7 +32,7 @@ public class ClimbersService {
 	}
 
 	public List<Climber> getClimbers() {
-		return scoreRepository.loadClimbers();
+		return climbersRepository.loadClimbers();
 	}
 
 	public Climber updateClimber(Attempt attempt) {
@@ -42,7 +42,7 @@ public class ClimbersService {
 
 					Climber climber = getClimber(attempt.getCompetitorId());
 					Climber updatedClimber = updateClimber(climber, attempt);
-					scoreRepository.saveClimber(updatedClimber);
+					climbersRepository.saveClimber(updatedClimber);
 			}
 		});
 		Climber climber = getClimber(attempt.getCompetitorId());
