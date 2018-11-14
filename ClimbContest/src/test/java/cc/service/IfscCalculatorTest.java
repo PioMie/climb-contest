@@ -8,8 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import cc.model.IfscAttemptEffect;
-import cc.model.IfscScore;
+import cc.service.ifsc.IfscAttemptEffect;
+import cc.service.ifsc.IfscCalculator;
+import cc.service.ifsc.IfscScore;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IfscCalculatorTest {
@@ -19,7 +20,7 @@ public class IfscCalculatorTest {
 	@Test
 	public void testAddAttempt() {
 		// given
-		IfscScore testScore = new IfscScore();
+		String testScore = "";
 
 		// when
 		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
@@ -39,12 +40,12 @@ public class IfscCalculatorTest {
 	@Test
 	public void testSumScores() {
 		// given
-		List<IfscScore> ifscScores = Arrays.asList(new IfscScore(9, 9, 9, 9), new IfscScore(1, 2, 3, 4),
-				new IfscScore(0, 1, 0, 1));
-		IfscScore expectedScore = new IfscScore(10, 11, 12, 13);
+		List<String> ifscScores = Arrays.asList(new IfscScore(9, 9, 9, 9).toString(),
+				new IfscScore(1, 2, 3, 4).toString(), new IfscScore(0, 1, 0, 1).toString());
+		String expectedScore = new IfscScore(10, 11, 12, 13).toString();
 
 		// when
-		IfscScore resultScore = calculator.sumScores(ifscScores);
+		String resultScore = calculator.sumScores(ifscScores);
 
 		// then
 		Assert.assertEquals(resultScore, expectedScore);

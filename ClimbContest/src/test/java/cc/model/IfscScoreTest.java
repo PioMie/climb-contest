@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import cc.service.ifsc.IfscScore;
+
 @RunWith(MockitoJUnitRunner.class)
 public class IfscScoreTest {
 

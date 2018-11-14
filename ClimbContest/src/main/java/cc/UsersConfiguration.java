@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreOptions;
+
 import cc.repository.ClimbersRepository;
 
 @Configuration
@@ -51,10 +54,10 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 		return executor;
 	}
 
-	// cc app beans:
-
 	@Bean
-	ClimbersRepository climbersRepository() {
-		return new ClimbersRepository(projectId);
+	public Firestore firestore() {
+		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
+				.setTimestampsInSnapshotsEnabled(true).build();
+		return firestoreOptions.getService();
 	}
 }

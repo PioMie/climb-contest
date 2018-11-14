@@ -3,7 +3,7 @@ package cc.model;
 public class Attempt {
 	private int competitorId;
 	private int routeId;
-	private IfscAttemptEffect effect;
+	private String effect;
 
 	public int getCompetitorId() {
 		return competitorId;
@@ -13,12 +13,12 @@ public class Attempt {
 		this.competitorId = competitorId;
 	}
 
-	public IfscAttemptEffect getEffect() {
+	public String getEffect() {
 		return effect;
 	}
 
 	public void setEffect(String effect) {
-		this.effect = IfscAttemptEffect.valueOf(effect);
+		this.effect = String.valueOf(effect);
 	}
 
 	public int getRouteId() {

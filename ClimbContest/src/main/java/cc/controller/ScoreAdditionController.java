@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cc.model.Attempt;
-import cc.model.Climber;
+import cc.model.climber.Climber;
 import cc.service.ClimbersService;
 
 @Controller
