@@ -17,35 +17,10 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 
-import cc.model.climber.Climber;
+import cc.dto.climber.Climber;
 
 @Repository
 public class ClimbersRepository {
-
-	@Autowired
-	private Firestore db;
-
-//	public ClimbersRepository(String projectId) {
-//		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
-//				.setTimestampsInSnapshotsEnabled(true).build();
-//		db = firestoreOptions.getService();
-//
-////		 some sample data
-////		 saveClimber(new Climber(0, "Pio", "FFK", "pro"));
-////		 saveClimber(new Climber(1, "Fell", "FFK", "lajt"));
-//	}
-
-	public void saveClimber(Climber climber) {
-		DocumentReference docRef = db.collection("scores-test").document(climber.getName());
-		Map<String, Object> data = new HashMap<>();
-		data.put("id", climber.getId());
-		data.put("name", climber.getName());
-		data.put("score", climber.getScore().toString());
-		data.put("routes", routeScoresToString(climber.getRouteScores()));
-		data.put("club", climber.getClub());
-		data.put("category", climber.getCategory());
-		docRef.set(data);
-	}
 
 	private static String routeScoresToString(List<String> routeScores) {
 		String res = "";
@@ -59,6 +34,16 @@ public class ClimbersRepository {
 		return res;
 	}
 
+//	public ClimbersRepository(String projectId) {
+//		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
+//				.setTimestampsInSnapshotsEnabled(true).build();
+//		db = firestoreOptions.getService();
+//
+////		 some sample data
+////		 saveClimber(new Climber(0, "Pio", "FFK", "pro"));
+////		 saveClimber(new Climber(1, "Fell", "FFK", "lajt"));
+//	}
+
 	private static List<String> stringToRouteScores(String stringWithRouteScores) {
 		List<String> res = new ArrayList<>();
 		if (StringUtils.isEmpty(stringWithRouteScores)) {
@@ -71,11 +56,14 @@ public class ClimbersRepository {
 		return Collections.unmodifiableList(res);
 	}
 
+	@Autowired
+	private Firestore db;
+
 	public List<Climber> loadClimbers() {
 		List<Climber> res = new ArrayList<>();
 
 		// asynchronously retrieve all users
-		ApiFuture<QuerySnapshot> query = db.collection("scores-test").get();
+		ApiFuture<QuerySnapshot> query = db.collection("slb-18-19-results").get();
 		// ...
 		// query.get() blocks on response
 		QuerySnapshot querySnapshot;
@@ -97,6 +85,18 @@ public class ClimbersRepository {
 		}
 
 		return res;
+	}
+
+	public void saveClimber(Climber climber) {
+		DocumentReference docRef = db.collection("slb-18-19-results").document(climber.getName());
+		Map<String, Object> data = new HashMap<>();
+		data.put("id", climber.getId());
+		data.put("name", climber.getName());
+		data.put("score", climber.getScore().toString());
+		data.put("routes", routeScoresToString(climber.getRouteScores()));
+		data.put("club", climber.getClub());
+		data.put("category", climber.getCategory());
+		docRef.set(data);
 	}
 
 }

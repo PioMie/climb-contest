@@ -16,21 +16,17 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 
-import cc.repository.ClimbersRepository;
-
 @Configuration
 @EnableWebSecurity
 public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 
 	private String projectId = "climbing-competitions";
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-		manager.createUser(User.withUsername("pio").password(encoder().encode("1")).roles("DUCK").build());
-		manager.createUser(
-				User.withUsername("fell").password(encoder().encode("Araszi_jest+supeRRR!")).roles("DUCK").build());
-		return manager;
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/scoreCard/**", "/css/**", "/js/**").permitAll();
+		http.authorizeRequests().antMatchers("/scoreAddition/**").hasRole("DUCK").and().formLogin();
+		http.csrf().disable();
 	}
 
 	@Bean
@@ -38,11 +34,11 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/scoreCard/**", "/css/**", "/js/**").permitAll();
-		http.authorizeRequests().antMatchers("/scoreAddition/**").hasRole("DUCK").and().formLogin();
-		http.csrf().disable();
+	@Bean
+	public Firestore firestore() {
+		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
+				.setTimestampsInSnapshotsEnabled(true).build();
+		return firestoreOptions.getService();
 	}
 
 	@Bean
@@ -54,10 +50,13 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 		return executor;
 	}
 
+	@Override
 	@Bean
-	public Firestore firestore() {
-		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
-				.setTimestampsInSnapshotsEnabled(true).build();
-		return firestoreOptions.getService();
+	public UserDetailsService userDetailsService() {
+		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+		manager.createUser(User.withUsername("pio").password(encoder().encode("1")).roles("DUCK").build());
+		manager.createUser(
+				User.withUsername("fell").password(encoder().encode("Araszi_jest+supeRRR!")).roles("DUCK").build());
+		return manager;
 	}
 }

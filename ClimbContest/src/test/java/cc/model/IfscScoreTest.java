@@ -11,19 +11,6 @@ import cc.service.ifsc.IfscScore;
 public class IfscScoreTest {
 
 	@Test
-	public void testToString() {
-		// given
-		IfscScore testScore = new IfscScore(0, 3, 1, 2);
-		String expectedString = "0t3  1b2";
-
-		// when
-		String testScoreString = testScore.toString();
-
-		// then
-		Assert.assertEquals(testScoreString, expectedString);
-	}
-
-	@Test
 	public void testParseString() {
 		// given
 		String testString = "0t3  1b2";
@@ -35,6 +22,15 @@ public class IfscScoreTest {
 		Assert.assertEquals(resultScore, new IfscScore(0, 3, 1, 2));
 	}
 
+	@Test(expected = NumberFormatException.class)
+	public void testParseStringFailsOnParsingInt() {
+		// given
+		String testString = "0.5t3  1b2";
+
+		// when
+		IfscScore.parseString(testString);
+	}
+
 	@Test(expected = RuntimeException.class)
 	public void testParseStringFailsOnWrongNumberOfArguments() {
 		// given
@@ -44,13 +40,17 @@ public class IfscScoreTest {
 		IfscScore.parseString(testString);
 	}
 
-	@Test(expected = NumberFormatException.class)
-	public void testParseStringFailsOnParsingInt() {
+	@Test
+	public void testToString() {
 		// given
-		String testString = "0.5t3  1b2";
+		IfscScore testScore = new IfscScore(0, 3, 1, 2);
+		String expectedString = "0t3  1b2";
 
 		// when
-		IfscScore.parseString(testString);
+		String testScoreString = testScore.toString();
+
+		// then
+		Assert.assertEquals(testScoreString, expectedString);
 	}
 
 }

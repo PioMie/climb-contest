@@ -1,16 +1,18 @@
 package cc.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import cc.model.Attempt;
-import cc.model.climber.Climber;
+import cc.dto.Attempt;
+import cc.dto.climber.Climber;
 import cc.repository.ClimbersRepository;
 import cc.service.ifsc.IfscCalculator;
-import cc.service.ifsc.IfscScore;
 
 @Service
 public class ClimbersService {
@@ -19,6 +21,7 @@ public class ClimbersService {
 	IfscCalculator calculator;
 	@Autowired
 	ClimbersRepository climbersRepository;
+	private int nextId = 0;
 	@Autowired
 	TaskExecutor taskExecutor;
 
@@ -34,6 +37,35 @@ public class ClimbersService {
 
 	public List<Climber> getClimbers() {
 		return climbersRepository.loadClimbers();
+	}
+
+	public void initClimbers(List<String> lines) {
+		for (String line : lines) {
+			climbersRepository.saveClimber(parseClimberLine(line));
+		}
+	}
+
+	private Climber parseClimberLine(String climberLine) {
+		String[] climberFields = climberLine.split(";");
+
+		List<String> routes = new ArrayList<>();
+		routes.addAll(parseEdition(climberFields[5]));
+		routes.addAll(parseEdition(climberFields[7]));
+		routes.addAll(parseEdition(climberFields[9]));
+		routes.addAll(parseEdition(climberFields.length > 11 ? climberFields[11] : null));
+
+		return new Climber(nextId++, climberFields[0], climberFields[1], climberFields[3] + " " + climberFields[2], "",
+				routes);
+	}
+
+	private List<String> parseEdition(String editionRoutes) {
+		if (StringUtils.isEmpty(editionRoutes)) {
+			return Arrays.asList("-", "-", "-", "-", "-", //
+					"-", "-", "-", "-", "-", //
+					"-", "-", "-", "-", "-", //
+					"-", "-", "-", "-", "-");
+		}
+		return Arrays.asList(editionRoutes.split("\\s"));
 	}
 
 	public Climber updateClimber(Attempt attempt) {
@@ -59,7 +91,7 @@ public class ClimbersService {
 		String newScore = calculator.addAttempt(oldScore, attempt.getEffect());
 		routeScores.set(attempt.getRouteId(), newScore);
 
-		String scoreSum = calculator.sumScores(routeScores);
+		String scoreSum = calculator.sumScores(routeScores, null);
 		return new Climber(climber.getId(), climber.getName(), climber.getClub(), climber.getCategory(), scoreSum,
 				routeScores);
 	}

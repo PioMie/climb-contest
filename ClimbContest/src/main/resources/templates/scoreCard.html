@@ -6,22 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Slonska Liga Boulderowa - rankingi">
 <title>ClimbContest - run climbing contests</title>
-<link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="js/jquery-3.3.1.js"></script> 
-<script type="text/javascript" charset="utf8" src=js/jquery.dataTables.js></script>
-
-
-<script>
-$(document).ready( function () {
-	$('#table_id').DataTable( {
-	   searching: false,
-	   paging: false,
-	   bInfo: false,
-	   "order": [[ 1, "desc" ]]
-	} );
-
-} );
-</script>
+<link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript" src="../js/functions.js"></script> 
 
 </head>
 <body>
@@ -30,28 +16,55 @@ $(document).ready( function () {
 	<table id="table_id" class="DataTable">
 		<thead>
 			<tr>
+				<th>place</th>
 				<th>name</th>
 				<th>category</th>
 				<th>club</th>
 				<th>score</th>
-				{{#routes}}
-				<th>{{.}}</th>
-				{{/routes}}
+				<th>scoreWithBonus</th>
+				{{#editions}}
+				<th class='ed{{.}}' onclick='toggle("ed{{.}}")'>{{.}}</th>
+				<th class='ed{{.}} colorful yellow' style="display: none;" onclick='toggle("ed{{.}}")'>1</th>
+				<th class='ed{{.}} colorful yellow' style="display: none;" onclick='toggle("ed{{.}}")'>2</th>
+				<th class='ed{{.}} colorful yellow' style="display: none;" onclick='toggle("ed{{.}}")'>3</th>
+				<th class='ed{{.}} colorful yellow' style="display: none;" onclick='toggle("ed{{.}}")'>4</th>
+				<th class='ed{{.}} colorful yellow' style="display: none;" onclick='toggle("ed{{.}}")'>5</th>
+				<th class='ed{{.}} colorful blue' style="display: none;" onclick='toggle("ed{{.}}")'>6</th>
+				<th class='ed{{.}} colorful blue' style="display: none;" onclick='toggle("ed{{.}}")'>7</th>
+				<th class='ed{{.}} colorful blue' style="display: none;" onclick='toggle("ed{{.}}")'>8</th>
+				<th class='ed{{.}} colorful blue' style="display: none;" onclick='toggle("ed{{.}}")'>9</th>
+				<th class='ed{{.}} colorful blue' style="display: none;" onclick='toggle("ed{{.}}")'>10</th>
+				<th class='ed{{.}} colorful red' style="display: none;" onclick='toggle("ed{{.}}")'>11</th>
+				<th class='ed{{.}} colorful red' style="display: none;" onclick='toggle("ed{{.}}")'>12</th>
+				<th class='ed{{.}} colorful red' style="display: none;" onclick='toggle("ed{{.}}")'>13</th>
+				<th class='ed{{.}} colorful red' style="display: none;" onclick='toggle("ed{{.}}")'>14</th>
+				<th class='ed{{.}} colorful red' style="display: none;" onclick='toggle("ed{{.}}")'>15</th>
+				<th class='ed{{.}} colorful black' style="display: none;" onclick='toggle("ed{{.}}")'>16</th>
+				<th class='ed{{.}} colorful black' style="display: none;" onclick='toggle("ed{{.}}")'>17</th>
+				<th class='ed{{.}} colorful black' style="display: none;" onclick='toggle("ed{{.}}")'>18</th>
+				<th class='ed{{.}} colorful black' style="display: none;" onclick='toggle("ed{{.}}")'>19</th>
+				<th class='ed{{.}} colorful black' style="display: none;" onclick='toggle("ed{{.}}")'>20</th>
+				{{/editions}}
 			</tr>
 		</thead>
 
 		<tbody>
-			{{#climbers}}
+			{{#scoreRows}}
 			<tr>
+				<td>{{place}}</td>
 				<td>{{name}}</td>
 				<td>{{category}}</td>
 				<td>{{club}}</td>
 				<td>{{score}}</td>
+				<td>{{scoreWithBonus}}</td>
+				{{#editions}}
+				<td class='ed{{idx}}'>{{score}}</td>
 				{{#routeScores}}
-				<td>{{.}}</td>
+				<td class='ed{{idx}} colorful {{color}}' style="display: none;">{{score}}</td>
 				{{/routeScores}}
+				{{/editions}}
 			</tr>
-			{{/climbers}}
+			{{/scoreRows}}
 		</tbody>
 
 	</table>

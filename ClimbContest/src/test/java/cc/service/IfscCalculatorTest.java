@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import cc.service.ifsc.IfscAttemptEffect;
 import cc.service.ifsc.IfscCalculator;
 import cc.service.ifsc.IfscScore;
 
@@ -23,15 +22,15 @@ public class IfscCalculatorTest {
 		String testScore = "";
 
 		// when
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.BONUS);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.BONUS);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.TOP);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.NONE);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.BONUS);
-		testScore = calculator.addAttempt(testScore, IfscAttemptEffect.TOP);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.NONE);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.NONE);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.BONUS);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.NONE);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.BONUS);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.TOP);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.NONE);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.BONUS);
+		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.TOP);
 
 		// then
 		Assert.assertEquals(testScore, new IfscScore(1, 6, 1, 3));
@@ -45,7 +44,7 @@ public class IfscCalculatorTest {
 		String expectedScore = new IfscScore(10, 11, 12, 13).toString();
 
 		// when
-		String resultScore = calculator.sumScores(ifscScores);
+		String resultScore = calculator.sumScores(ifscScores, null);
 
 		// then
 		Assert.assertEquals(resultScore, expectedScore);

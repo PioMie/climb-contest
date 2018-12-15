@@ -6,5 +6,5 @@ public interface Calculator {
 
 	String addAttempt(String score, String effect);
 
-	String sumScores(List<String> scores);
+	String sumScores(List<String> scores, String category);
 }

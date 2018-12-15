@@ -1,4 +1,4 @@
-package cc.model.climber;
+package cc.dto.climber;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Climber {
 
+	private String category;
+	private String club;
 	private int id;
 	private String name;
-	private String club;
-	private String category;
-	private String score;
 	private List<String> routeScores;
+	private String score;
 
 	public Climber(int id, String name, String club, String category) {
 		this(id, name, club, category, "", new ArrayList<String>());
@@ -26,6 +26,14 @@ public class Climber {
 		this.routeScores = Collections.unmodifiableList(routeScores);
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public String getClub() {
+		return club;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -34,20 +42,12 @@ public class Climber {
 		return name;
 	}
 
-	public String getScore() {
-		return score != null ? score : "";
-	}
-
-	public String getClub() {
-		return club;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
 	public List<String> getRouteScores() {
 		return routeScores;
+	}
+
+	public String getScore() {
+		return score != null ? score : "";
 	}
 
 }
