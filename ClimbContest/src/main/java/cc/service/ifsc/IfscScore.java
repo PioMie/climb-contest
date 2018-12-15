@@ -2,9 +2,14 @@ package cc.service.ifsc;
 
 import java.util.Objects;
 
+import org.springframework.util.StringUtils;
+
 public class IfscScore {
 
 	public static IfscScore parseString(String ifscScoreString) {
+		if (StringUtils.isEmpty(ifscScoreString)) {
+			return new IfscScore();
+		}
 		String[] parts = ifscScoreString.split("t|b|\\s+");
 		if (parts.length != 4) {
 			throw new RuntimeException(
@@ -16,6 +21,7 @@ public class IfscScore {
 		int bonusesAttempts = Integer.parseInt(parts[3]);
 		return new IfscScore(tops, topAttempts, bonuses, bonusesAttempts);
 	}
+
 	int bonuses;
 	int bonusesAttempts;
 	int topAttempts;

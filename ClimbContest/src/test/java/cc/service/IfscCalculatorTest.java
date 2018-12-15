@@ -33,7 +33,7 @@ public class IfscCalculatorTest {
 		testScore = calculator.addAttempt(testScore, BoulderAttemptEffect.TOP);
 
 		// then
-		Assert.assertEquals(testScore, new IfscScore(1, 6, 1, 3));
+		Assert.assertEquals(testScore, new IfscScore(1, 6, 1, 3).toString());
 	}
 
 	@Test
