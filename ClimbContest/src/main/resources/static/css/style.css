@@ -67,24 +67,28 @@ footer {
 }
 
 th.yellow {
+	padding: 0px;
 	background-color: yellow;
 	color: black;
 	cursor: pointer;
 }
 
 th.blue {
+	padding: 0px;
 	background-color: blue;
 	color: white;
 	cursor: pointer;
 }
 
 th.red {
+	padding: 0px;
 	background-color: red;
 	color: white;
 	cursor: pointer;
 }
 
 th.black {
+	padding: 0px;
 	background-color: black;
 	color: lightgrey;
 	cursor: pointer;
