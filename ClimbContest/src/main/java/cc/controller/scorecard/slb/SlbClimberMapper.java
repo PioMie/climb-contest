@@ -18,10 +18,10 @@ public class SlbClimberMapper {
 
 	private String addBonusToScore(String score, String category) {
 		if (category.contains("PRO")) {
-			return calculator.sumEditions(Arrays.asList(score, "10t0b"), 0);
+			return calculator.sumEditions(Arrays.asList(score, "10t10b"), 0);
 		}
 		if (category.contains("HARD")) {
-			return calculator.sumEditions(Arrays.asList(score, "5t0b"), 0);
+			return calculator.sumEditions(Arrays.asList(score, "5t5b"), 0);
 		}
 		return score;
 	}
@@ -56,7 +56,9 @@ public class SlbClimberMapper {
 		}
 
 		res.setScore(calculator.sumEditions(editionScores, 2));
+		res.setScoreOfAll(calculator.sumEditions(editionScores, 0));
 		res.setScoreWithBonus(calculator.sumEditions(editionScoresWithBonus, 2));
+		res.setScoreOfAllWithBonus(calculator.sumEditions(editionScoresWithBonus, 0));
 		return res;
 	}
 
