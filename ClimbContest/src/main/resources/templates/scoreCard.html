@@ -21,6 +21,7 @@
 				<th>category</th>
 				<th>club</th>
 				<th>score</th>
+				<th>scoreOfAll</th>
 				<th>scoreWithBonus</th>
 				{{#editions}}
 				<th class='ed{{.}}' onclick='toggle("ed{{.}}")'>{{.}}</th>
@@ -56,6 +57,7 @@
 				<td>{{category}}</td>
 				<td>{{club}}</td>
 				<td>{{score}}</td>
+				<td>{{scoreOfAll}}</td>
 				<td>{{scoreWithBonus}}</td>
 				{{#editions}}
 				<td class='ed{{idx}}'>{{score}}</td>

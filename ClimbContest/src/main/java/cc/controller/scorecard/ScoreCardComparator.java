@@ -16,7 +16,9 @@ public class ScoreCardComparator implements Comparator<SlbClimberScorecard> {
 
 	@Override
 	public int compare(SlbClimberScorecard o1, SlbClimberScorecard o2) {
-		return -calculator.compare(o1.getScoreWithBonus(), o2.getScoreWithBonus());
+		return calculator.compare(o1.getScoreWithBonus(), o2.getScoreWithBonus()) == 0
+				? -calculator.compare(o1.getScoreOfAllWithBonus(), o2.getScoreOfAllWithBonus())
+				: -calculator.compare(o1.getScoreWithBonus(), o2.getScoreWithBonus());
 	}
 
 }

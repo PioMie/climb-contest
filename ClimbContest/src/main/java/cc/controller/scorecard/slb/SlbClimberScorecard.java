@@ -9,6 +9,8 @@ public class SlbClimberScorecard {
 	private String name;
 	private int place;
 	private String score;
+	private String scoreOfAll;
+	private String scoreOfAllWithBonus;
 	private String scoreWithBonus;
 
 	public String getCategory() {
@@ -33,6 +35,14 @@ public class SlbClimberScorecard {
 
 	public String getScore() {
 		return score;
+	}
+
+	public String getScoreOfAll() {
+		return scoreOfAll;
+	}
+
+	public String getScoreOfAllWithBonus() {
+		return scoreOfAllWithBonus;
 	}
 
 	public String getScoreWithBonus() {
@@ -61,6 +71,14 @@ public class SlbClimberScorecard {
 
 	public void setScore(String score) {
 		this.score = score;
+	}
+
+	public void setScoreOfAll(String scoreOfAll) {
+		this.scoreOfAll = scoreOfAll;
+	}
+
+	public void setScoreOfAllWithBonus(String scoreOfAllWithBonus) {
+		this.scoreOfAllWithBonus = scoreOfAllWithBonus;
 	}
 
 	public void setScoreWithBonus(String scoreWithBonus) {
