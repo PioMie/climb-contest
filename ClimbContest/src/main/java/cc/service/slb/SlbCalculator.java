@@ -73,20 +73,20 @@ public class SlbCalculator implements Calculator {
 		if (category.contains("HARD")) {
 			SlbScore res = addScores(redScore, blueScore);
 			if (res.getTops() == 10 && blackScore.getTops() > 0) {
-				return new SlbScore(11, 0).toString();
+				return new SlbScore(11, 11).toString();
 			}
 			if (res.getTops() == 10 && blackScore.getBonuses() > 0) {
-				return new SlbScore(10, 1).toString();
+				return new SlbScore(10, 11).toString();
 			}
 			return res.toString();
 		}
 		if (category.contains("EASY")) {
 			SlbScore res = addScores(blueScore, yellowScore);
 			if (res.getTops() == 10 && (redScore.getTops() > 0 || blackScore.getTops() > 0)) {
-				return new SlbScore(11, 0).toString();
+				return new SlbScore(11, 11).toString();
 			}
 			if (res.getTops() == 10 && (redScore.getBonuses() > 0 || blackScore.getBonuses() > 0)) {
-				return new SlbScore(10, 1).toString();
+				return new SlbScore(10, 11).toString();
 			}
 			return res.toString();
 		}

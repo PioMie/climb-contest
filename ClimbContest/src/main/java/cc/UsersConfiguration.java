@@ -26,6 +26,7 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/scoreCard/**", "/css/**", "/js/**").permitAll();
 		http.authorizeRequests().antMatchers("/scoreAddition/**").hasRole("DUCK").and().formLogin();
+		http.authorizeRequests().antMatchers("/scoreEdition/**").hasRole("DUCK").and().formLogin();
 		http.csrf().disable();
 	}
 

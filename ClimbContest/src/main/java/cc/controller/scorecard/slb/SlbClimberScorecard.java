@@ -6,6 +6,7 @@ public class SlbClimberScorecard {
 	private String category;
 	private String club;
 	private List<SlbEditionResult> editions;
+	private int id;
 	private String name;
 	private int place;
 	private String score;
@@ -23,6 +24,10 @@ public class SlbClimberScorecard {
 
 	public List<SlbEditionResult> getEditions() {
 		return editions;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getName() {
@@ -59,6 +64,10 @@ public class SlbClimberScorecard {
 
 	public void setEditions(List<SlbEditionResult> editions) {
 		this.editions = editions;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {

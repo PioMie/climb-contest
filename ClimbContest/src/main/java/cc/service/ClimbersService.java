@@ -3,6 +3,7 @@ package cc.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
@@ -52,7 +53,8 @@ public class ClimbersService {
 		routes.addAll(parseEdition(climberFields[5]));
 		routes.addAll(parseEdition(climberFields[7]));
 		routes.addAll(parseEdition(climberFields[9]));
-		routes.addAll(parseEdition(climberFields.length > 11 ? climberFields[11] : null));
+		routes.addAll(parseEdition(climberFields[11]));
+		routes.addAll(parseEdition(climberFields.length > 13 ? climberFields[13] : null));
 
 		return new Climber(nextId++, climberFields[0], climberFields[1], climberFields[3] + " " + climberFields[2], "",
 				routes);
@@ -65,7 +67,10 @@ public class ClimbersService {
 					"-", "-", "-", "-", "-", //
 					"-", "-", "-", "-", "-");
 		}
-		return Arrays.asList(editionRoutes.split("\\s"));
+		List<String> res = Arrays.asList(editionRoutes.split("\\s"));
+		return res.stream().map(r -> r.replace("BONUS", BoulderAttemptEffect.BONUS))
+				.map(r -> r.replace("TOP", BoulderAttemptEffect.TOP))
+				.map(r -> r.replace("ZERO", BoulderAttemptEffect.NONE)).collect(Collectors.toList());
 	}
 
 	public Climber updateClimber(Attempt attempt) {
@@ -94,5 +99,12 @@ public class ClimbersService {
 		String scoreSum = calculator.sumScores(routeScores, null);
 		return new Climber(climber.getId(), climber.getName(), climber.getClub(), climber.getCategory(), scoreSum,
 				routeScores);
+	}
+
+	public void saveClimber(Climber climber) {
+		Climber oldVerstion = getClimber(climber.getId());
+		if (!oldVerstion.equals(climber)) {
+			climbersRepository.saveClimber(climber);
+		}
 	}
 }

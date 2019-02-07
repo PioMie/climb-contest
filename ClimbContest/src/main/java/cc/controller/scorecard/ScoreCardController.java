@@ -37,7 +37,7 @@ public class ScoreCardController {
 	}
 
 	private List<Climber> filterClimbersByCategory(List<Climber> climbers, String category) {
-		List<Climber> res = new ArrayList<Climber>();
+		List<Climber> res = new ArrayList<>();
 		for (Climber climber : climbers) {
 			if (climber.getCategory().contains(category)) {
 				res.add(climber);

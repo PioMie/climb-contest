@@ -28,6 +28,7 @@ public class SlbClimberMapper {
 
 	public SlbClimberScorecard map(Climber climber) {
 		SlbClimberScorecard res = new SlbClimberScorecard();
+		res.setId(climber.getId());
 		res.setCategory(climber.getCategory());
 		res.setClub(climber.getClub());
 		res.setName(climber.getName());
@@ -46,8 +47,8 @@ public class SlbClimberMapper {
 			for (int j = 0; j < editions.get(i).size(); ++j) {
 				editionScore.getRouteScores().add(mapSingleResult(editions.get(i).get(j), j));
 			}
-			editionScore.setScore(
-					"-".equals(editions.get(i).get(0)) ? "" : calculator.sumScores(editions.get(i), res.getCategory()));
+			String score = calculator.sumScores(editions.get(i), res.getCategory());
+			editionScore.setScore("0t0b".equals(score) ? "" : score);
 			editionScore.setScoreWithBonus(addBonusToScore(editionScore.getScore(), res.getCategory()));
 			editionScore.setIdx(i + 1);
 			editionScores.add(editionScore.getScore());
@@ -83,20 +84,9 @@ public class SlbClimberMapper {
 		return "black";
 	}
 
-	private String mapRouteResult(String routeResult) {
-		switch (routeResult) {
-		case "TOP":
-			return "t";
-		case "BONUS":
-			return "b";
-		default:
-			return "";
-		}
-	}
-
 	private SlbRoute mapSingleResult(String singleResult, int idx) {
 		SlbRoute res = new SlbRoute();
-		res.setScore(mapRouteResult(singleResult));
+		res.setScore(singleResult);
 		res.setColor(mapRouteColor(idx));
 		return res;
 	}
