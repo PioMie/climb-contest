@@ -22,6 +22,9 @@ import cc.dto.climber.Climber;
 @Repository
 public class ClimbersRepository {
 
+	@Autowired
+	private Firestore db;
+
 	private static String routeScoresToString(List<String> routeScores) {
 		String res = "";
 		for (String score : routeScores) {
@@ -34,16 +37,6 @@ public class ClimbersRepository {
 		return res;
 	}
 
-//	public ClimbersRepository(String projectId) {
-//		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
-//				.setTimestampsInSnapshotsEnabled(true).build();
-//		db = firestoreOptions.getService();
-//
-////		 some sample data
-////		 saveClimber(new Climber(0, "Pio", "FFK", "pro"));
-////		 saveClimber(new Climber(1, "Fell", "FFK", "lajt"));
-//	}
-
 	private static List<String> stringToRouteScores(String stringWithRouteScores) {
 		List<String> res = new ArrayList<>();
 		if (StringUtils.isEmpty(stringWithRouteScores)) {
@@ -55,9 +48,6 @@ public class ClimbersRepository {
 		}
 		return Collections.unmodifiableList(res);
 	}
-
-	@Autowired
-	private Firestore db;
 
 	public List<Climber> loadClimbers() {
 		List<Climber> res = new ArrayList<>();

@@ -10,43 +10,30 @@
 
 </head>
 <body>
-	<form action="edit" method="post" class="details">
-		{{#climber}}
-		<input type="hidden" value="{{id}}" name="id" />
+	
+	<h1>Add climber</h1>
+	<form action="add" method="post" class="details">
 		<div class="climber">
 			<div>
 				<label>Name</label><br/>
-				<input type="text" value="{{name}}" name="name" />
+				<input type="text" name="name" />
 			</div>
 			<br/>
 			<div>
 				<label>Club</label><br/>
-				<input type="text" value="{{club}}" name="club" />
+				<input type="text" name="club" />
 			</div>
 			<br/>
 			<div>
 				<label>Category</label><br/>
-				<input type="text" value="{{category}}" name="category" />
+				<input type="text" name="category" />
 			</div>
 		</div>
-		{{/climber}}
-		
 		<br/>
 		<br/>
-	
-		<div class="routes">
-		{{#editions}}
-			<div class="edition">
-				<label>{{key}}</label>
-				{{#value}}
-				<input type="text" name="routes" value="{{.}}" pattern="[bt\u002D]{1}"/>
-				{{/value}}
-				<br/>
-				<br/>
-			</div>
-		{{/editions}}
+		<div>
+			<input type="submit" class="submit" name="add" />
 		</div>
-		<input type="submit" class="submit">
 	</form>
 
 	<footer>

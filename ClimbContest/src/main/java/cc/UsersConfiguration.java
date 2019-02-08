@@ -27,6 +27,8 @@ public class UsersConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/scoreCard/**", "/css/**", "/js/**").permitAll();
 		http.authorizeRequests().antMatchers("/scoreAddition/**").hasRole("DUCK").and().formLogin();
 		http.authorizeRequests().antMatchers("/scoreEdition/**").hasRole("DUCK").and().formLogin();
+		http.authorizeRequests().antMatchers("/scoreImport/**").hasRole("DUCK").and().formLogin();
+		http.authorizeRequests().antMatchers("/climberAddition/**").hasRole("DUCK").and().formLogin();
 		http.csrf().disable();
 	}
 

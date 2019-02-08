@@ -11,39 +11,30 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import cc.dto.Attempt;
-import cc.dto.climber.Climber;
-import cc.service.ClimbersService;
+import cc.service.slb.ClimbersService;
 
 @Controller
-@RequestMapping("/scoreAddition")
-public class ScoreAdditionController {
-
+@RequestMapping("/scoreImport")
+public class ScoreImportController {
 	@Autowired
 	ClimbersService climbersService;
 
-	@PostMapping("/addAttempt")
-	public ModelAndView addAttempt(@ModelAttribute Attempt attempt) {
-		if ("IMPORT".equals(attempt.getEffect())) {
-			List<String> lines = getLines(
-					new File("C:\\Programs\\repos\\ffk\\parser\\league\\output\\18-19\\transport.csv").toPath());
+	@PostMapping("/import")
+	public String addAttempt() {
+		List<String> lines = getLines(
+				new File("C:\\Programs\\repos\\ffk\\parser\\league\\output\\18-19\\transport.csv").toPath());
 
-			climbersService.initClimbers(lines);
-			return new ModelAndView("scoreCard");
-		}
+		climbersService.initClimbers(lines);
 
-		Climber climber = climbersService.updateClimber(attempt);
-		return new ModelAndView("competitor", "climber", climber);
+		return "redirect:/scoreCard";
 	}
 
 	@GetMapping
 	public String get() {
-		return "scoreAddition";
+		return "scoreImport";
 	}
 
 	public List<String> getLines(Path path) {
@@ -53,5 +44,4 @@ public class ScoreAdditionController {
 			throw new IllegalStateException(e);
 		}
 	}
-
 }

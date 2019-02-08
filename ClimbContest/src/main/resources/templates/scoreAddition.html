@@ -10,25 +10,52 @@
 
 </head>
 <body>
-	<h1>psst!</h1>
+	<h1>Find climber</h1>
 
-	<form action="scoreAddition/addAttempt" method="post" style="margin: 15px">
-		<div style="margin: 15px">
-			<label style="font-size: small;">Competitor number:</label>
-			<br>
-			<input type="number" required="required" name="competitorId" pattern="[0-9]" />
+	<form action="pick" method="post" class="details">
+		<div class="climber">
+			<select id="climberSelection" name="id" onchange="this.form.submit()" onload=" document.getElementById('climberSelection').value = {{id}" >
+				{{#climbers}}
+				<option value="{{id}}" {{selected}}>{{name}}</option>
+				{{/climbers}}
+			</select>
+			<a class="shifted" href="/climberAddition/">add climber</a>
 		</div>
-		<div style="margin: 15px">
-			<label style="font-size: small;">Problem number:</label>
-			<br>
-			<input type="number" required="required" name="routeId" pattern="[0-9]">
+	</form>
+	<br/>
+	<form action="add" method="post" class="details">
+		<div>
+			<div class="routes">
+				{{#routes}}
+					<input type="text" name="routes" value={{.}} pattern="[bt\u002D]{1}"/>
+				{{/routes}}
+				<br/>
+				<br/>
+			</div>
+			<div>
+				<input type="hidden" name="id" value="{{id}}" />
+				<input type="submit" name="submit" class="submit" />
+			</div>
 		</div>
-		<div style="margin: 15px;">
-			<input type="submit" id="submitTop" name="effect" value="TOP" style="padding: 5px;" />
-			<input type="submit" id="submitBonus" name="effect" value="BONUS" style="padding: 5px;" />
-			<input type="submit" id="submitNone" name="effect" value="NONE" style="padding: 5px;" />
-			
-			<input type="submit" id="import" name="effect" value="IMPORT" style="padding: 5px;" />
+	</form>
+	
+	<h1>Manage editions</h1>
+		<form action="manage" method="post" class="details">
+		<div class="climber">
+			<div>
+				<label>Editions completed</label><br/>
+				<input type="number" name="completed" pattern="[0-8]{1}" value="{{completed}}" />
+			</div>
+			<br/>
+			<div>
+				<label>Current edition</label><br/>
+				<input type="number" name="current" pattern="[1-8]{1}" value="{{current}}" />
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<div>
+			<input type="submit" class="submit" name="add" />
 		</div>
 	</form>
 

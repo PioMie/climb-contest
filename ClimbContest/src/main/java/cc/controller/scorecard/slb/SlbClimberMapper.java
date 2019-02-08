@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cc.dto.climber.Climber;
+import cc.service.slb.Category;
 import cc.service.slb.SlbCalculator;
 
 @Service
@@ -16,17 +17,18 @@ public class SlbClimberMapper {
 	@Autowired
 	SlbCalculator calculator;
 
-	private String addBonusToScore(String score, String category) {
-		if (category.contains("PRO")) {
+	private String addBonusToScore(String score, String categoryCode) {
+		Category category = Category.getByCode(categoryCode);
+		if (Category.PRO_MALE.equals(category)) {
 			return calculator.sumEditions(Arrays.asList(score, "10t10b"), 0);
 		}
-		if (category.contains("HARD")) {
+		if (Arrays.asList(Category.HARD_FEMALE, Category.HARD_MALE).contains(category)) {
 			return calculator.sumEditions(Arrays.asList(score, "5t5b"), 0);
 		}
 		return score;
 	}
 
-	public SlbClimberScorecard map(Climber climber) {
+	public SlbClimberScorecard map(Climber climber, int completedEditions) {
 		SlbClimberScorecard res = new SlbClimberScorecard();
 		res.setId(climber.getId());
 		res.setCategory(climber.getCategory());
@@ -56,17 +58,17 @@ public class SlbClimberMapper {
 			res.getEditions().add(editionScore);
 		}
 
-		res.setScore(calculator.sumEditions(editionScores, 2));
-		res.setScoreOfAll(calculator.sumEditions(editionScores, 0));
-		res.setScoreWithBonus(calculator.sumEditions(editionScoresWithBonus, 2));
-		res.setScoreOfAllWithBonus(calculator.sumEditions(editionScoresWithBonus, 0));
+		res.setScore(calculator.sumEditions(editionScores, 8 - completedEditions + 2));
+		res.setScoreOfAll(calculator.sumEditions(editionScores, 8 - completedEditions));
+		res.setScoreWithBonus(calculator.sumEditions(editionScoresWithBonus, 8 - completedEditions + 2));
+		res.setScoreOfAllWithBonus(calculator.sumEditions(editionScoresWithBonus, 8 - completedEditions));
 		return res;
 	}
 
-	public List<SlbClimberScorecard> map(List<Climber> climbers) {
+	public List<SlbClimberScorecard> map(List<Climber> climbers, int completedEditions) {
 		List<SlbClimberScorecard> res = new ArrayList<>();
 		for (Climber c : climbers) {
-			res.add(map(c));
+			res.add(map(c, completedEditions));
 		}
 		return res;
 	}

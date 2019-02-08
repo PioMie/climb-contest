@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cc.controller.scoreedition.model.ClimberEdition;
 import cc.dto.climber.Climber;
-import cc.service.ClimbersService;
+import cc.service.slb.ClimbersService;
 
 @Controller
 @RequestMapping("/scoreEdition")

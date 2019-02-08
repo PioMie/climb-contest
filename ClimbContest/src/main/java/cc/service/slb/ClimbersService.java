@@ -1,8 +1,11 @@
-package cc.service;
+package cc.service.slb;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.util.StringUtils;
 import cc.dto.Attempt;
 import cc.dto.climber.Climber;
 import cc.repository.ClimbersRepository;
+import cc.service.BoulderAttemptEffect;
 import cc.service.ifsc.IfscCalculator;
 
 @Service
@@ -22,9 +26,10 @@ public class ClimbersService {
 	IfscCalculator calculator;
 	@Autowired
 	ClimbersRepository climbersRepository;
-	private int nextId = 0;
 	@Autowired
 	TaskExecutor taskExecutor;
+
+	private Optional<Integer> lastId = Optional.empty();
 
 	public Climber getClimber(int climberId) {
 		List<Climber> climbers = getClimbers();
@@ -55,17 +60,17 @@ public class ClimbersService {
 		routes.addAll(parseEdition(climberFields[9]));
 		routes.addAll(parseEdition(climberFields[11]));
 		routes.addAll(parseEdition(climberFields.length > 13 ? climberFields[13] : null));
+		routes.addAll(Collections.nCopies(20, "-"));
+		routes.addAll(Collections.nCopies(20, "-"));
+		routes.addAll(Collections.nCopies(20, "-"));
 
-		return new Climber(nextId++, climberFields[0], climberFields[1], climberFields[3] + " " + climberFields[2], "",
-				routes);
+		Category category = Category.mapCategory(climberFields[3] + " " + climberFields[2]);
+		return new Climber(getNextId(), climberFields[0], climberFields[1], category.toString(), "", routes);
 	}
 
 	private List<String> parseEdition(String editionRoutes) {
 		if (StringUtils.isEmpty(editionRoutes)) {
-			return Arrays.asList("-", "-", "-", "-", "-", //
-					"-", "-", "-", "-", "-", //
-					"-", "-", "-", "-", "-", //
-					"-", "-", "-", "-", "-");
+			return Collections.nCopies(20, "-");
 		}
 		List<String> res = Arrays.asList(editionRoutes.split("\\s"));
 		return res.stream().map(r -> r.replace("BONUS", BoulderAttemptEffect.BONUS))
@@ -106,5 +111,22 @@ public class ClimbersService {
 		if (!oldVerstion.equals(climber)) {
 			climbersRepository.saveClimber(climber);
 		}
+	}
+
+	public int createClimber(String name, String club, String category) {
+		Climber climber = new Climber(getNextId(), name, club, category, "0t0b", Collections.nCopies(160, "-"));
+		climbersRepository.saveClimber(climber);
+		return climber.getId();
+	}
+
+	private int getNextId() {
+		if (lastId.isPresent()) {
+			lastId = Optional.of(lastId.get() + 1);
+		} else {
+			List<Climber> climbers = getClimbers();
+			Optional<Integer> maxId = climbers.stream().map(Climber::getId).max(Comparator.comparing(Integer::valueOf));
+			lastId = Optional.of(maxId.isPresent() ? maxId.get() + 1 : 0);
+		}
+		return lastId.get();
 	}
 }

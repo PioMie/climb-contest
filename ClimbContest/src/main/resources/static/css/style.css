@@ -18,6 +18,15 @@ body {
 	display: block;
 }
 
+label.filter {
+	margin-left: 5px;
+	font-weight: bold;
+}
+
+a.shifted {
+	margin-left: 5px;
+}
+
 table {
 	margin-left: auto;
 	margin-right: auto;
@@ -65,6 +74,7 @@ footer {
 	line-height: 50px;
 	text-align: center;
 	background: grey;
+	border-radius: 5px;
 }
 
 th.yellow {
@@ -108,6 +118,7 @@ td.blue {
 }
 
 td.red {
+	background-color: rgba(255, 0, 0, 0.25);
 	color: black;
 	text-align: center;
 }
@@ -116,6 +127,10 @@ td.black {
 	background-color: rgba(75, 75, 75, 0.5);
 	color: black;
 	text-align: center;
+}
+
+form.details {
+	margin: 15px;
 }
 
 form.details div.climber label {
@@ -130,6 +145,16 @@ form.details div.climber input {
 	border: none;
 	font-size: large;
 	padding: 10px;
+	border-radius: 5px;
+}
+
+form.details div.climber select {
+	width: 100%;
+	background-color: lightgray;
+	border: none;
+	font-size: large;
+	padding: 10px;
+	border-radius: 5px;
 }
 
 form.details div.routes input {
@@ -138,77 +163,113 @@ form.details div.routes input {
 	border: none;
 }
 
-form.details input.submit {
+input.submit {
 	font-size: medium;
 	border: none;
 	background-color: green;
 	padding: 10px;
+	border-radius: 5px;
 }
 
-form.details input.submit:hover {
+input.submit:hover {
 	background-color: lightgreen;
 }
 
-div.edition input:nth-of-type(1) {
-	background-color: lightyellow;
-}
-div.edition input:nth-of-type(2) {
-	background-color: lightyellow;
-}
-div.edition input:nth-of-type(3) {
-	background-color: lightyellow;
-}
-div.edition input:nth-of-type(4) {
-	background-color: lightyellow;
-}
-div.edition input:nth-of-type(5) {
-	background-color: lightyellow;
+div.routes input {
+	font-weight: bold;
+	border-radius: 5px;
 }
 
-div.edition input:nth-of-type(6) {
-	background-color: lightblue;
-}
-div.edition input:nth-of-type(7) {
-	background-color: lightblue;
-}
-div.edition input:nth-of-type(8) {
-	background-color: lightblue;
-}
-div.edition input:nth-of-type(9) {
-	background-color: lightblue;
-}
-div.edition input:nth-of-type(10) {
-	background-color: lightblue;
+div.routes input:nth-of-type(1) {
+	background-color: rgba(255, 255, 0, 0.25);
 }
 
-div.edition input:nth-of-type(11) {
-	background-color: orangered;
-}
-div.edition input:nth-of-type(12) {
-	background-color: orangered;
-}
-div.edition input:nth-of-type(13) {
-	background-color: orangered;
-}
-div.edition input:nth-of-type(14) {
-	background-color: orangered;
-}
-div.edition input:nth-of-type(15) {
-	background-color: orangered;
+div.routes input:nth-of-type(2) {
+	background-color: rgba(255, 255, 0, 0.25);
 }
 
-div.edition input:nth-of-type(16) {
-	background-color: lightgrey;
+div.routes input:nth-of-type(3) {
+	background-color: rgba(255, 255, 0, 0.25);
 }
-div.edition input:nth-of-type(17) {
-	background-color: lightgrey;
+
+div.routes input:nth-of-type(4) {
+	background-color: rgba(255, 255, 0, 0.25);
 }
-div.edition input:nth-of-type(18) {
-	background-color: lightgrey;
+
+div.routes input:nth-of-type(5) {
+	background-color: rgba(255, 255, 0, 0.25);
 }
-div.edition input:nth-of-type(19) {
-	background-color: lightgrey;
+
+div.routes input:nth-of-type(6) {
+	background-color: rgba(0, 0, 255, 0.25);
 }
-div.edition input:nth-of-type(20) {
-	background-color: lightgrey;
+
+div.routes input:nth-of-type(7) {
+	background-color: rgba(0, 0, 255, 0.25);
+}
+
+div.routes input:nth-of-type(8) {
+	background-color: rgba(0, 0, 255, 0.25);
+}
+
+div.routes input:nth-of-type(9) {
+	background-color: rgba(0, 0, 255, 0.25);
+}
+
+div.routes input:nth-of-type(10) {
+	background-color: rgba(0, 0, 255, 0.25);
+}
+
+div.routes input:nth-of-type(11) {
+	background-color: rgba(255, 0, 0, 0.25);
+}
+
+div.routes input:nth-of-type(12) {
+	background-color: rgba(255, 0, 0, 0.25);
+}
+
+div.routes input:nth-of-type(13) {
+	background-color: rgba(255, 0, 0, 0.25);
+}
+
+div.routes input:nth-of-type(14) {
+	background-color: rgba(255, 0, 0, 0.25);
+}
+
+div.routes input:nth-of-type(15) {
+	background-color: rgba(255, 0, 0, 0.25);
+}
+
+div.routes input:nth-of-type(16) {
+	background-color: rgba(75, 75, 75, 0.5)
+}
+
+div.routes input:nth-of-type(17) {
+	background-color: rgba(75, 75, 75, 0.5)
+}
+
+div.routes input:nth-of-type(18) {
+	background-color: rgba(75, 75, 75, 0.5)
+}
+
+div.routes input:nth-of-type(19) {
+	background-color: rgba(75, 75, 75, 0.5)
+}
+
+div.routes input:nth-of-type(20) {
+	background-color: rgba(75, 75, 75, 0.5)
+}
+
+a.plus {
+	display: inline;
+	float: right;
+	background: darkgreen;
+	border-radius: 50%;
+	color: white;
+	padding: 2px;
+	text-decoration: none;
+}
+
+a.plus:hover {
+	color: lightblue;
 }

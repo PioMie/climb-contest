@@ -17,7 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import cc.controller.scorecard.slb.SlbClimberMapper;
 import cc.controller.scorecard.slb.SlbClimberScorecard;
 import cc.dto.climber.Climber;
-import cc.service.ClimbersService;
+import cc.service.slb.ClimbersService;
+import cc.service.slb.EditionsService;
 
 @Controller
 @RequestMapping("/scoreCard")
@@ -27,6 +28,8 @@ public class ScoreCardController {
 	SlbClimberMapper climberMapper;
 	@Autowired
 	ClimbersService climbersService;
+	@Autowired
+	EditionsService editionsService;
 	@Autowired
 	ScoreCardComparator comparator;
 
@@ -59,10 +62,11 @@ public class ScoreCardController {
 	}
 
 	private ModelAndView showScoreCard(Map<String, Object> model, List<Climber> climbers) {
-		List<SlbClimberScorecard> scoreRows = climberMapper.map(climbers);
+		int completedEditions = editionsService.loadCompletedEditions();
+		List<SlbClimberScorecard> scoreRows = climberMapper.map(climbers, completedEditions);
 		Collections.sort(scoreRows, comparator);
 		assignPlaces(scoreRows);
-		List<String> editions = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+		List<String> editions = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8");
 
 		model.put("scoreRows", scoreRows);
 		model.put("editions", editions);

@@ -1,5 +1,6 @@
 package cc.service.slb;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,20 +58,18 @@ public class SlbCalculator implements Calculator {
 	}
 
 	@Override
-	public String sumScores(List<String> scores, String category) {
-		if (category.contains("JUNIOR") || category.contains("VETERAN")) {
-			return sumAllScores(scores).toString();
-		}
+	public String sumScores(List<String> scores, String categoryCode) {
+		Category category = Category.getByCode(categoryCode);
 
 		SlbScore yellowScore = sumAllScores(scores.subList(0, 5));
 		SlbScore blueScore = sumAllScores(scores.subList(5, 10));
 		SlbScore redScore = sumAllScores(scores.subList(10, 15));
 		SlbScore blackScore = sumAllScores(scores.subList(15, 20));
 
-		if (category.contains("PRO")) {
+		if (Category.PRO_MALE.equals(category)) {
 			return addScores(blackScore, redScore).toString();
 		}
-		if (category.contains("HARD")) {
+		if (Arrays.asList(Category.HARD_FEMALE, Category.HARD_MALE).contains(category)) {
 			SlbScore res = addScores(redScore, blueScore);
 			if (res.getTops() == 10 && blackScore.getTops() > 0) {
 				return new SlbScore(11, 11).toString();
@@ -80,7 +79,7 @@ public class SlbCalculator implements Calculator {
 			}
 			return res.toString();
 		}
-		if (category.contains("EASY")) {
+		if (Arrays.asList(Category.EASY_FEMALE, Category.EASY_MALE).contains(category)) {
 			SlbScore res = addScores(blueScore, yellowScore);
 			if (res.getTops() == 10 && (redScore.getTops() > 0 || blackScore.getTops() > 0)) {
 				return new SlbScore(11, 11).toString();
@@ -90,8 +89,8 @@ public class SlbCalculator implements Calculator {
 			}
 			return res.toString();
 		}
-
-		throw new RuntimeException("Category: '" + category + "' not recognized");
+		
+		return sumAllScores(scores).toString();
 	}
 
 }
