@@ -102,4 +102,19 @@ public class Climber {
 		return true;
 	}
 
+	public String toString(String separator, Integer edition) {
+		String routes = "";
+		boolean present = false;
+		for (int i = 20 * (edition - 1); i < 20 * edition; ++i) {
+			routes += routeScores.get(i) + separator;
+			present |= !"-".equals(routeScores.get(i));
+		}
+		if (!present) {
+			return "";
+		}
+		String res = name + separator;
+		res += club + separator;
+		res += routes + "\n";
+		return res;
+	}
 }
