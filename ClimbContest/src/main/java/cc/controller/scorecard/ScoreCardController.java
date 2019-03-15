@@ -52,16 +52,16 @@ public class ScoreCardController {
 	@GetMapping
 	public ModelAndView home(Map<String, Object> model) {
 		List<Climber> climbers = climbersService.getClimbers();
-		return showScoreCard(model, climbers);
+		return showScoreCard(model, climbers, null);
 	}
 
 	@GetMapping("/{category}")
 	public ModelAndView home(Map<String, Object> model, @PathVariable String category) {
 		List<Climber> climbers = climbersService.getClimbers();
-		return showScoreCard(model, filterClimbersByCategory(climbers, category));
+		return showScoreCard(model, filterClimbersByCategory(climbers, category), category);
 	}
 
-	private ModelAndView showScoreCard(Map<String, Object> model, List<Climber> climbers) {
+	private ModelAndView showScoreCard(Map<String, Object> model, List<Climber> climbers, String category) {
 		int completedEditions = editionsService.loadCompletedEditions();
 		List<SlbClimberScorecard> scoreRows = climberMapper.map(climbers, completedEditions);
 		Collections.sort(scoreRows, comparator);
@@ -70,8 +70,39 @@ public class ScoreCardController {
 
 		model.put("scoreRows", scoreRows);
 		model.put("editions", editions);
-		model.put("header", "Score Card");
+		if (category != null) {
+			model.put("header", getCategoryLabel(category));
+			model.put("hideCategory", "display: none");
+		} else {
+			model.put("header", "Score Card");
+			model.put("hideCategory", "");
+		}
 
 		return new ModelAndView("scoreCard", model);
+	}
+
+	private static String getCategoryLabel(String category) {
+		switch (category) {
+		case "PM":
+			return "Chopy Pro";
+		case "TM":
+			return "Chopy Trudna";
+		case "LM":
+			return "Chopy Lajt";
+		case "TK":
+			return "Dziołchy Trudna";
+		case "TL":
+			return "Dziołchy Lajt";
+		case "JM":
+			return "Bajtle";
+		case "JK":
+			return "Dziołszki";
+		case "WM":
+			return "Weterani";
+		case "WK":
+			return "Weteranki";
+		default:
+			return null;
+		}
 	}
 }
