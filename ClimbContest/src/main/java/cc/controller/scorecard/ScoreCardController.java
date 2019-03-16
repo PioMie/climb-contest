@@ -91,7 +91,7 @@ public class ScoreCardController {
 			return "Chopy Lajt";
 		case "TK":
 			return "Dziołchy Trudna";
-		case "TL":
+		case "LK":
 			return "Dziołchy Lajt";
 		case "JM":
 			return "Bajtle";

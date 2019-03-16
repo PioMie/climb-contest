@@ -61,8 +61,9 @@ public class ClimbersService {
 		routes.addAll(parseEdition(climberFields[11]));
 		routes.addAll(parseEdition(climberFields[13]));
 		routes.addAll(parseEdition(climberFields[15]));
-		routes.addAll(parseEdition(climberFields.length > 17 ? climberFields[17] : null));
-		routes.addAll(Collections.nCopies(20, "-"));
+		routes.addAll(parseEdition(climberFields[17]));
+		routes.addAll(parseEdition(climberFields.length > 19 ? climberFields[19] : null));
+		//routes.addAll(Collections.nCopies(20, "-"));
 
 		Category category = Category.mapCategory(climberFields[3] + " " + climberFields[2]);
 		return new Climber(getNextId(), climberFields[0], climberFields[1], category.toString(), "", routes);

@@ -106,15 +106,45 @@ public class Climber {
 		String routes = "";
 		boolean present = false;
 		for (int i = 20 * (edition - 1); i < 20 * edition; ++i) {
-			routes += routeScores.get(i) + separator;
-			present |= !"-".equals(routeScores.get(i));
+			if ("-".equals(routeScores.get(i))) {
+				routes += separator;
+			} else {
+				routes += routeScores.get(i) + separator;
+				present = true;
+			}
 		}
 		if (!present) {
 			return "";
 		}
 		String res = name + separator;
 		res += club + separator;
-		res += routes + "\n";
+		res += routes;
+		res += mapCategory(category) + separator;
+		res += category.substring(1) + "\n";
 		return res;
+	}
+
+	String mapCategory(String category) {
+		switch (category) {
+		case "PM":
+			return "Pro";
+		case "TM":
+			return "Trudna";
+		case "LM":
+			return "Lajt";
+		case "JM":
+			return "Junior";
+		case "WM":
+			return "Weteran";
+		case "TK":
+			return "Trudna";
+		case "LK":
+			return "Lajt";
+		case "JK":
+			return "Junior";
+		case "WK":
+			return "Weteran";
+		}
+		return "";
 	}
 }
