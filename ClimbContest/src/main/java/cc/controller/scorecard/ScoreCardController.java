@@ -66,7 +66,7 @@ public class ScoreCardController {
 		List<SlbClimberScorecard> scoreRows = climberMapper.map(climbers, completedEditions);
 		Collections.sort(scoreRows, comparator);
 		assignPlaces(scoreRows);
-		List<String> editions = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8");
+		List<String> editions = Arrays.asList("1", "2", "3", "4", "5");
 
 		model.put("scoreRows", scoreRows);
 		model.put("editions", editions);
@@ -101,6 +101,10 @@ public class ScoreCardController {
 			return "Weterani";
 		case "WK":
 			return "Weteranki";
+		case "M":
+			return "Chopy";
+		case "K":
+			return "Dziołchy";
 		default:
 			return null;
 		}
