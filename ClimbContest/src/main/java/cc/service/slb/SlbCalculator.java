@@ -62,30 +62,30 @@ public class SlbCalculator implements Calculator {
 		Category category = Category.getByCode(categoryCode);
 
 		SlbScore yellowScore = sumAllScores(scores.subList(0, 5));
-		SlbScore blueScore = sumAllScores(scores.subList(5, 10));
-		SlbScore redScore = sumAllScores(scores.subList(10, 15));
-		SlbScore blackScore = sumAllScores(scores.subList(15, 20));
+		SlbScore blueScore = sumAllScores(scores.subList(5, 11));
+		SlbScore redScore = sumAllScores(scores.subList(11, 17));
+		SlbScore blackScore = sumAllScores(scores.subList(17, 20));
 
 		if (Category.PRO_MALE.equals(category)) {
 			return addScores(blackScore, redScore).toString();
 		}
 		if (Arrays.asList(Category.HARD_FEMALE, Category.HARD_MALE).contains(category)) {
 			SlbScore res = addScores(redScore, blueScore);
-			if (res.getTops() == 10 && blackScore.getTops() > 0) {
-				return new SlbScore(11, 11).toString();
+			if (res.getTops() == 12 && blackScore.getTops() > 0) {
+				return new SlbScore(13, 13).toString();
 			}
-			if (res.getTops() == 10 && blackScore.getBonuses() > 0) {
-				return new SlbScore(10, 11).toString();
+			if (res.getTops() == 12 && blackScore.getBonuses() > 0) {
+				return new SlbScore(11, 12).toString();
 			}
 			return res.toString();
 		}
 		if (Arrays.asList(Category.EASY_FEMALE, Category.EASY_MALE).contains(category)) {
 			SlbScore res = addScores(blueScore, yellowScore);
-			if (res.getTops() == 10 && (redScore.getTops() > 0 || blackScore.getTops() > 0)) {
-				return new SlbScore(11, 11).toString();
+			if (res.getTops() == 11 && (redScore.getTops() > 0 || blackScore.getTops() > 0)) {
+				return new SlbScore(12, 12).toString();
 			}
 			if (res.getTops() == 10 && (redScore.getBonuses() > 0 || blackScore.getBonuses() > 0)) {
-				return new SlbScore(10, 11).toString();
+				return new SlbScore(11, 12).toString();
 			}
 			return res.toString();
 		}

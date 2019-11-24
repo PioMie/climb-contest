@@ -53,7 +53,7 @@ public class ClimbersRepository {
 		List<Climber> res = new ArrayList<>();
 
 		// asynchronously retrieve all users
-		ApiFuture<QuerySnapshot> query = db.collection("slb-18-19-results").get();
+		ApiFuture<QuerySnapshot> query = db.collection("slb-19-20-results").get();
 		// ...
 		// query.get() blocks on response
 		QuerySnapshot querySnapshot;
@@ -78,7 +78,7 @@ public class ClimbersRepository {
 	}
 
 	public void saveClimber(Climber climber) {
-		DocumentReference docRef = db.collection("slb-18-19-results").document(climber.getName());
+		DocumentReference docRef = db.collection("slb-19-20-results").document(climber.getName());
 		Map<String, Object> data = new HashMap<>();
 		data.put("id", climber.getId());
 		data.put("name", climber.getName());

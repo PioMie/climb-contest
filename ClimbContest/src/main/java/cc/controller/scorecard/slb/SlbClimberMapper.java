@@ -20,7 +20,7 @@ public class SlbClimberMapper {
 	private String addBonusToScore(String score, String categoryCode) {
 		Category category = Category.getByCode(categoryCode);
 		if (Category.PRO_MALE.equals(category)) {
-			return calculator.sumEditions(Arrays.asList(score, "10t10b"), 0);
+			return calculator.sumEditions(Arrays.asList(score, "11t11b"), 0);
 		}
 		if (Arrays.asList(Category.HARD_FEMALE, Category.HARD_MALE).contains(category)) {
 			return calculator.sumEditions(Arrays.asList(score, "5t5b"), 0);
@@ -58,10 +58,10 @@ public class SlbClimberMapper {
 			res.getEditions().add(editionScore);
 		}
 
-		res.setScore(calculator.sumEditions(editionScores, 8 - completedEditions + 2));
-		res.setScoreOfAll(calculator.sumEditions(editionScores, 8 - completedEditions));
-		res.setScoreWithBonus(calculator.sumEditions(editionScoresWithBonus, 8 - completedEditions + 2));
-		res.setScoreOfAllWithBonus(calculator.sumEditions(editionScoresWithBonus, 8 - completedEditions));
+		res.setScore(calculator.sumEditions(editionScores, 0));
+		res.setScoreOfAll(calculator.sumEditions(editionScores, 0));
+		res.setScoreWithBonus(calculator.sumEditions(editionScoresWithBonus, 0));
+		res.setScoreOfAllWithBonus(calculator.sumEditions(editionScoresWithBonus, 0));
 		return res;
 	}
 
@@ -77,10 +77,10 @@ public class SlbClimberMapper {
 		if (idx < 5) {
 			return "yellow";
 		}
-		if (idx < 10) {
+		if (idx < 11) {
 			return "blue";
 		}
-		if (idx < 15) {
+		if (idx < 17) {
 			return "red";
 		}
 		return "black";

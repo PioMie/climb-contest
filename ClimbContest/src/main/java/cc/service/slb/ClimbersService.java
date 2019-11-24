@@ -56,13 +56,13 @@ public class ClimbersService {
 
 		List<String> routes = new ArrayList<>();
 		routes.addAll(parseEdition(climberFields[5]));
-		routes.addAll(parseEdition(climberFields[7]));
-		routes.addAll(parseEdition(climberFields[9]));
-		routes.addAll(parseEdition(climberFields[11]));
-		routes.addAll(parseEdition(climberFields[13]));
-		routes.addAll(parseEdition(climberFields[15]));
-		routes.addAll(parseEdition(climberFields[17]));
-		routes.addAll(parseEdition(climberFields.length > 19 ? climberFields[19] : null));
+//		routes.addAll(parseEdition(climberFields[7]));
+//		routes.addAll(parseEdition(climberFields[9]));
+//		routes.addAll(parseEdition(climberFields[11]));
+//		routes.addAll(parseEdition(climberFields[13]));
+//		routes.addAll(parseEdition(climberFields[15]));
+//		routes.addAll(parseEdition(climberFields[17]));
+//		routes.addAll(parseEdition(climberFields.length > 19 ? climberFields[19] : null));
 		//routes.addAll(Collections.nCopies(20, "-"));
 
 		Category category = Category.mapCategory(climberFields[3] + " " + climberFields[2]);

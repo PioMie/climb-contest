@@ -32,7 +32,7 @@ public class ScoreImportController {
 	@PostMapping("/import")
 	public String importResults() {
 		List<String> lines = getLines(
-				new File("C:\\Programs\\repos\\ffk\\parser\\league\\output\\18-19\\transport.csv").toPath());
+				new File("C:\\Programs\\repos\\ffk\\parser\\league\\output\\19-20\\transport.csv").toPath());
 
 		climbersService.initClimbers(lines);
 

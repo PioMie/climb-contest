@@ -19,7 +19,7 @@ public class ParamsRepository {
 	private Firestore db;
 
 	public void saveParams(Map<String, String> params) {
-		DocumentReference docRef = db.collection("slb-18-19-params").document("params");
+		DocumentReference docRef = db.collection("slb-19-20-params").document("params");
 		Map<String, Object> data = new HashMap<>();
 		data.putAll(loadParams());
 		data.putAll(params);
@@ -27,7 +27,7 @@ public class ParamsRepository {
 	}
 	
 	public Map<String, Object> loadParams() {
-		DocumentReference docRef = db.collection("slb-18-19-params").document("params");
+		DocumentReference docRef = db.collection("slb-19-20-params").document("params");
 		DocumentSnapshot document;
 		try {
 			ApiFuture<DocumentSnapshot> docSnapshot;
