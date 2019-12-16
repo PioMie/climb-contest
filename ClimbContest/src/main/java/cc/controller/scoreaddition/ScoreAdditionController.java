@@ -21,6 +21,7 @@ import cc.controller.scoreaddition.model.Editions;
 import cc.controller.scoreaddition.model.PickedClimber;
 import cc.controller.scoreaddition.model.ScoreAddition;
 import cc.dto.climber.Climber;
+import cc.service.BoulderAttemptEffect;
 import cc.service.slb.ClimbersService;
 import cc.service.slb.EditionsService;
 
@@ -76,7 +77,8 @@ public class ScoreAdditionController {
 		int to = currentEdition * 20;
 		boolean fromOk = from >= 0 && from < climber.getRouteScores().size();
 		boolean toOk = to >= 0 && to <= climber.getRouteScores().size();
-		return fromOk && toOk ? climber.getRouteScores().subList(from, to) : Collections.<String>emptyList();
+		return fromOk && toOk ? climber.getRouteScores().subList(from, to)
+				: Collections.nCopies(20, BoulderAttemptEffect.NONE);
 	}
 
 	@PostMapping("/add")
@@ -96,7 +98,8 @@ public class ScoreAdditionController {
 		List<String> res = new ArrayList<String>();
 		res.addAll(climber.getRouteScores().subList(0, from));
 		res.addAll(currentResults);
-		res.addAll(climber.getRouteScores().subList(to, climber.getRouteScores().size()));
+		if (to < climber.getRouteScores().size())
+			res.addAll(climber.getRouteScores().subList(to, climber.getRouteScores().size()));
 		return res;
 	}
 

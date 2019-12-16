@@ -27,6 +27,8 @@ public class ClimbersService {
 	@Autowired
 	ClimbersRepository climbersRepository;
 	@Autowired
+	EditionsService editonsService;
+	@Autowired
 	TaskExecutor taskExecutor;
 
 	private Optional<Integer> lastId = Optional.empty();
@@ -63,7 +65,7 @@ public class ClimbersService {
 //		routes.addAll(parseEdition(climberFields[15]));
 //		routes.addAll(parseEdition(climberFields[17]));
 //		routes.addAll(parseEdition(climberFields.length > 19 ? climberFields[19] : null));
-		//routes.addAll(Collections.nCopies(20, "-"));
+		// routes.addAll(Collections.nCopies(20, "-"));
 
 		Category category = Category.mapCategory(climberFields[3] + " " + climberFields[2]);
 		return new Climber(getNextId(), climberFields[0], climberFields[1], category.toString(), "", routes);
@@ -115,7 +117,8 @@ public class ClimbersService {
 	}
 
 	public int createClimber(String name, String club, String category) {
-		Climber climber = new Climber(getNextId(), name, club, category, "0t0b", Collections.nCopies(160, "-"));
+		Climber climber = new Climber(getNextId(), name, club, category, "0t0b",
+				Collections.nCopies(20 * editonsService.loadCompletedEditions(), BoulderAttemptEffect.NONE));
 		climbersRepository.saveClimber(climber);
 		return climber.getId();
 	}
