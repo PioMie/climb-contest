@@ -24,7 +24,7 @@ public class ClimberAdditionController {
 
 	@PostMapping("/add")
 	public String post(@ModelAttribute AddedClimber addedClimber) {
-		int id = climbersService.createClimber(addedClimber.getName(), addedClimber.getClub(), addedClimber.getCategory());
+		int id = climbersService.createClimber(addedClimber.getName().toUpperCase(), addedClimber.getClub().toUpperCase(), addedClimber.getCategory());
 		return "redirect:/scoreAddition/" + id;
 	}
 

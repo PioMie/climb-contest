@@ -68,7 +68,7 @@ public class ScoreEditionController {
 
 	private Climber map(ClimberEdition climberEdition) {
 		Climber climber = climbersService.getClimber(climberEdition.getId());
-		return new Climber(climber.getId(), climberEdition.getName(), climberEdition.getClub(),
+		return new Climber(climber.getId(), climberEdition.getName().toUpperCase(), climberEdition.getClub().toUpperCase(),
 				climberEdition.getCategory(), climber.getScore(), climberEdition.getRoutes());
 	}
 }
