@@ -31,8 +31,6 @@ public class ClimbersService {
 	@Autowired
 	TaskExecutor taskExecutor;
 
-	private Optional<Integer> lastId = Optional.empty();
-
 	public Climber getClimber(int climberId) {
 		List<Climber> climbers = getClimbers();
 		for (Climber c : climbers) {
@@ -124,13 +122,8 @@ public class ClimbersService {
 	}
 
 	private int getNextId() {
-		if (lastId.isPresent()) {
-			lastId = Optional.of(lastId.get() + 1);
-		} else {
-			List<Climber> climbers = getClimbers();
-			Optional<Integer> maxId = climbers.stream().map(Climber::getId).max(Comparator.comparing(Integer::valueOf));
-			lastId = Optional.of(maxId.isPresent() ? maxId.get() + 1 : 0);
-		}
-		return lastId.get();
+		List<Climber> climbers = getClimbers();
+		Optional<Integer> maxId = climbers.stream().map(Climber::getId).max(Comparator.comparing(Integer::valueOf));
+		return maxId.isPresent() ? maxId.get() + 1 : 0;
 	}
 }
