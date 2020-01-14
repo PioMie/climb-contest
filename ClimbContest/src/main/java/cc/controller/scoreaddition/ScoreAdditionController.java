@@ -105,6 +105,7 @@ public class ScoreAdditionController {
 
 	@PostMapping("/manage")
 	public String manage(@ModelAttribute Editions editions) {
+		climbersService.extendAllResults(editions.getCompleted());
 		editionsService.saveCompletedEditions(editions.getCompleted());
 		editionsService.saveCurrentEdition(editions.getCurrent());
 		return "redirect:/scoreCard";

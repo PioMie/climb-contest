@@ -126,4 +126,24 @@ public class ClimbersService {
 		Optional<Integer> maxId = climbers.stream().map(Climber::getId).max(Comparator.comparing(Integer::valueOf));
 		return maxId.isPresent() ? maxId.get() + 1 : 0;
 	}
+
+	public void extendAllResults(int editionsCompleted) {
+		List<Climber> climbers = getClimbers();
+		for (Climber climber : climbers) {
+			if (climber.getRouteScores().size() < editionsCompleted * 20) {
+				extandResults(climber, editionsCompleted);
+			}
+		}  
+	}
+
+	public void extandResults(Climber climber, int editionsCompleted) {
+		List<String> routeScores = new ArrayList<String>();
+		routeScores.addAll(climber.getRouteScores());
+		while (routeScores.size() < editionsCompleted * 20) {
+			routeScores.addAll(Collections.nCopies(20, BoulderAttemptEffect.NONE));
+		}
+		Climber updatedClimber = new Climber(climber.getId(), climber.getName(), climber.getClub(),
+				climber.getCategory(), "0t0b", routeScores);
+		saveClimber(updatedClimber);
+	}
 }
