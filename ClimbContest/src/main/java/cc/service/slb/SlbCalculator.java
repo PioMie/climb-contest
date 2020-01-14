@@ -84,7 +84,7 @@ public class SlbCalculator implements Calculator {
 			if (res.getTops() == 11 && (redScore.getTops() > 0 || blackScore.getTops() > 0)) {
 				return new SlbScore(12, 12).toString();
 			}
-			if (res.getTops() == 10 && (redScore.getBonuses() > 0 || blackScore.getBonuses() > 0)) {
+			if (res.getTops() == 11 && (redScore.getBonuses() > 0 || blackScore.getBonuses() > 0)) {
 				return new SlbScore(11, 12).toString();
 			}
 			return res.toString();
