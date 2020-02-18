@@ -75,7 +75,7 @@ public class SlbCalculator implements Calculator {
 				return new SlbScore(13, 13).toString();
 			}
 			if (res.getTops() == 12 && blackScore.getBonuses() > 0) {
-				return new SlbScore(11, 12).toString();
+				return new SlbScore(12, 13).toString();
 			}
 			return res.toString();
 		}
